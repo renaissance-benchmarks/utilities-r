@@ -4,6 +4,8 @@ Version: 0.0.0.1
 Authors@R:
     person ("Petr", "Tuma", email = "petr.tuma@d3s.mff.cuni.cz", role = c ("aut", "cre"), comment = c (ORCID = "0000-0002-7035-2322"))
 Description: A utility package for processing the data produced by the Renaissance benchmark suite (https://renaissance.dev).
+URL: https://github.com/renaissance-benchmarks/utilities-r
+BugReports: https://github.com/renaissance-benchmarks/utilities-r/issues
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list (markdown = TRUE)
