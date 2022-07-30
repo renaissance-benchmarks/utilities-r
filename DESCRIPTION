@@ -1,0 +1,24 @@
+Package: rren
+Title: Renaissance Benchmark Data Processing Package
+Version: 0.0.0.1
+Authors@R:
+    person ("Petr", "Tuma", email = "petr.tuma@d3s.mff.cuni.cz", role = c ("aut", "cre"), comment = c (ORCID = "0000-0002-7035-2322"))
+Description: A utility package for processing the data produced by the Renaissance benchmark suite (https://renaissance.dev).
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list (markdown = TRUE)
+RoxygenNote: 7.2.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    checkmate (>= 2.1.0),
+    digest (>= 0.6.20),
+    dplyr (>= 1.0.9),
+    glue (>= 1.6.2),
+    jsonlite (>= 1.8.0),
+    logger (>= 0.2.2),
+    magrittr (>= 2.0.3),
+    rlang (>= 1.0.4),
+    stringr (>= 1.4.0),
+    tibble (>= 3.1.8)

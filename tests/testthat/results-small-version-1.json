@@ -1,0 +1,45 @@
+{
+  "results": {
+    "naive-bayes": [{
+      "unixts.before": 1658853007817,
+      "nanos": 7561177632,
+      "unixts.after": 1658853015378
+    }, {
+      "unixts.before": 1658853015378,
+      "nanos": 5474785829,
+      "unixts.after": 1658853020853
+    }, {
+      "unixts.before": 1658853020853,
+      "nanos": 5199163298,
+      "unixts.after": 1658853026053
+    }],
+    "page-rank": [{
+      "unixts.before": 1658852980585,
+      "nanos": 19159228357,
+      "unixts.after": 1658852999745
+    }, {
+      "unixts.before": 1658852999746,
+      "nanos": 2762617410,
+      "unixts.after": 1658853002508
+    }, {
+      "unixts.before": 1658853002508,
+      "nanos": 2765866561,
+      "unixts.after": 1658853005274
+    }]
+  },
+  "benchmarks": ["naive-bayes", "page-rank"],
+  "environment": {
+    "vm": {
+      "name": "OpenJDK 64-Bit Server VM",
+      "jre_version": "1.8.0_332",
+      "args": [],
+      "vm_version": "25.332-b09"
+    },
+    "os": {
+      "arch": "amd64",
+      "name": "Linux",
+      "version": "5.18.13-200.fc36.x86_64"
+    }
+  },
+  "format_version": 1
+}
