@@ -1,4 +1,9 @@
 ^LICENSE\.md$
+^codecov\.yml$
+^_pkgdown\.yml$
+^pkgdown$
+^docs$
+
 ^\.sublime$
 ^\.github$
 ^\.lintr$

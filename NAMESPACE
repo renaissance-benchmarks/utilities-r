@@ -2,6 +2,7 @@
 
 export(load_file_json)
 export(load_path_json)
+export(rren_example)
 import(checkmate)
 import(dplyr)
 import(glue)

@@ -28,5 +28,15 @@ Additional metadata is included as factor columns:
 \item \code{vm} is a hash of all configuration metadata and can be used to distinguish incompatible measurement configurations
 \item \code{vm_name} is the name of the virtual machine
 \item \code{vm_version} is the version of the virtual machine
+\item \code{vm_configuration} gives concatenated command line arguments
+\item \code{run} is a unique identifier of the run
+\item \code{benchmark} is the name of the benchmark
 }
+}
+\examples{
+load_file_json (rren_example ('results-small-version-5.json'))
+
+}
+\seealso{
+\code{\link[=load_path_json]{load_path_json()}}
 }

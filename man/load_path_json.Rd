@@ -4,16 +4,22 @@
 \alias{load_path_json}
 \title{Load data from given path recursively.}
 \usage{
-load_path_json(data_path)
+load_path_json(data_path, pattern = "\\\\.json(|\\\\.gz|\\\\.xz|\\\\.bz2)$")
 }
 \arguments{
 \item{data_path}{data path to load from}
+
+\item{pattern}{regular expression pattern to match}
 }
 \value{
 tibble with loaded data
 }
 \description{
 Load data from given path recursively.
+}
+\examples{
+load_path_json (rren_example (), pattern = '^results-small-version-[0-9]+\\\\.json$')
+
 }
 \seealso{
 \code{\link[=load_file_json]{load_file_json()}}

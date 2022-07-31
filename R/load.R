@@ -128,6 +128,11 @@ extract_data <- function (data_json, benchmark, version, meta_read) {
 #'
 #' @param data_file data file to load from
 #' @return tibble with loaded data
+#'
+#' @examples
+#' load_file_json (rren_example ('results-small-version-5.json'))
+#'
+#' @seealso [rren::load_path_json()]
 #' @export
 load_file_json <- function (data_file) {
 
@@ -157,16 +162,21 @@ load_file_json <- function (data_file) {
 #' Load data from given path recursively.
 #'
 #' @param data_path data path to load from
+#' @param pattern regular expression pattern to match
 #' @return tibble with loaded data
+#'
+#' @examples
+#' load_path_json (rren_example (), pattern = '^results-small-version-[0-9]+\\.json$')
+#'
 #' @seealso [rren::load_file_json()]
 #' @export
-load_path_json <- function (data_path) {
+load_path_json <- function (data_path, pattern = '\\.json(|\\.gz|\\.xz|\\.bz2)$') {
 
-    data_file_list <- list.files (data_path, '\\.json(|\\.gz|\\.xz|\\.bz2)$', recursive = TRUE, full.names = TRUE)
+    data_file_list <- list.files (data_path, pattern, recursive = TRUE, full.names = TRUE)
     data_list <- lapply (data_file_list, load_file_json)
     data_read <- bind_rows (data_list)
 
-    log_info ('Loaded {nrow (result)} rows from path {data_path}.')
+    log_info ('Loaded {nrow (data_read)} rows from path {data_path}.')
 
     return (data_read)
 }
