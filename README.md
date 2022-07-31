@@ -1,7 +1,6 @@
 # rren: Renaissance Benchmark R Utilities
 
 [![check](https://github.com/renaissance-benchmarks/utilities-r/actions/workflows/check.yaml/badge.svg)](https://github.com/renaissance-benchmarks/utilities-r/actions/workflows/check.yaml)
-[![coverage](https://codecov.io/gh/renaissance-benchmarks/utilities-r/branch/main/graph/badge.svg)](https://app.codecov.io/gh/renaissance-benchmarks/utilities-r?branch=main)
 
 ## Overview
 
