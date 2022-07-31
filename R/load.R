@@ -122,9 +122,9 @@ extract_data <- function (data_json, benchmark, version, meta_read) {
 #' - `vm` is a hash of all configuration metadata and can be used to distinguish incompatible measurement configurations
 #' - `vm_name` is the name of the virtual machine
 #' - `vm_version` is the version of the virtual machine
-#` - `vm_configuration` gives concatenated command line arguments
-#` - `run` is a unique identifier of the run
-#` - `benchmark` is the name of the benchmark
+#' - `vm_configuration` gives concatenated command line arguments
+#' - `run` is a unique identifier of the run
+#' - `benchmark` is the name of the benchmark
 #'
 #' @param data_file data file to load from
 #' @return tibble with loaded data
