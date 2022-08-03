@@ -11,6 +11,7 @@ A utility package for processing the data produced by the Renaissance benchmark 
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://renaissance.dev/utilities-r}
   \item \url{https://github.com/renaissance-benchmarks/utilities-r}
   \item Report bugs at \url{https://github.com/renaissance-benchmarks/utilities-r/issues}
 }

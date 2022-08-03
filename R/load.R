@@ -132,7 +132,7 @@ extract_data <- function (data_json, benchmark, version, meta_read) {
 #' @examples
 #' load_file_json (rren_example ('results-small-version-5.json'))
 #'
-#' @seealso [rren::load_path_json()]
+#' @seealso [load_path_json()]
 #' @export
 load_file_json <- function (data_file) {
 
@@ -163,20 +163,32 @@ load_file_json <- function (data_file) {
 #'
 #' @param data_path data path to load from
 #' @param pattern regular expression pattern to match
+#' @param cache file name to use as data cache
 #' @return tibble with loaded data
 #'
 #' @examples
 #' load_path_json (rren_example (), pattern = '^results-small-version-[0-9]+\\.json$')
 #'
-#' @seealso [rren::load_file_json()]
+#' @seealso [load_file_json()]
 #' @export
-load_path_json <- function (data_path, pattern = '\\.json(|\\.gz|\\.xz|\\.bz2)$') {
+load_path_json <- function (data_path, pattern = '\\.json(|\\.gz|\\.xz|\\.bz2)$', cache = NULL) {
 
-    data_file_list <- list.files (data_path, pattern, recursive = TRUE, full.names = TRUE)
-    data_list <- lapply (data_file_list, load_file_json)
-    data_read <- bind_rows (data_list)
+    if (!is.null (cache) && fs::file_exists (cache)) {
 
-    log_info ('Loaded {nrow (data_read)} rows from path {data_path}.')
+        data_read <- readRDS (cache)
+        log_info ('Loaded {nrow (data_read)} rows from cache {cache}.')
+
+    } else {
+
+        data_file_list <- list.files (data_path, pattern, recursive = TRUE, full.names = TRUE)
+        data_list <- lapply (data_file_list, load_file_json)
+        data_read <- bind_rows (data_list)
+        log_info ('Loaded {nrow (data_read)} rows from path {data_path}.')
+
+        if (!is.null (cache)) {
+            saveRDS (data_read, cache)
+        }
+    }
 
     return (data_read)
 }
