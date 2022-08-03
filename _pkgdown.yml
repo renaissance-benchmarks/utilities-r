@@ -9,3 +9,6 @@ reference:
   contents:
     - starts_with ('preserve_')
     - starts_with ('identify_')
+- title: Miscellaneous functions
+  contents:
+    - rren_example
