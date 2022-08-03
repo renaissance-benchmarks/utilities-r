@@ -13,6 +13,12 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/identify_outliers_global.html</loc>
+  </url>
+  <url>
+    <loc>/reference/identify_outliers_window.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -20,6 +26,12 @@
   </url>
   <url>
     <loc>/reference/load_path_json.html</loc>
+  </url>
+  <url>
+    <loc>/reference/preserve_last_n.html</loc>
+  </url>
+  <url>
+    <loc>/reference/preserve_last_sec.html</loc>
   </url>
   <url>
     <loc>/reference/rren-package.html</loc>
