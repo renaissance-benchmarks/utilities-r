@@ -1,2 +1,11 @@
 template:
     bootstrap: 5
+
+reference:
+- title: Loading results
+  contents:
+    - starts_with ('load_')
+- title: Filtering results
+  contents:
+    - starts_with ('preserve_')
+    - starts_with ('identify_')

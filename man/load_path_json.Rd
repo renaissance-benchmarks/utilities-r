@@ -4,12 +4,18 @@
 \alias{load_path_json}
 \title{Load data from given path recursively.}
 \usage{
-load_path_json(data_path, pattern = "\\\\.json(|\\\\.gz|\\\\.xz|\\\\.bz2)$")
+load_path_json(
+  data_path,
+  pattern = "\\\\.json(|\\\\.gz|\\\\.xz|\\\\.bz2)$",
+  cache = NULL
+)
 }
 \arguments{
 \item{data_path}{data path to load from}
 
 \item{pattern}{regular expression pattern to match}
+
+\item{cache}{file name to use as data cache}
 }
 \value{
 tibble with loaded data
