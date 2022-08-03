@@ -34,6 +34,12 @@
     <loc>/reference/preserve_last_sec.html</loc>
   </url>
   <url>
+    <loc>/reference/remove_outliers_global.html</loc>
+  </url>
+  <url>
+    <loc>/reference/remove_outliers_window.html</loc>
+  </url>
+  <url>
     <loc>/reference/rren-package.html</loc>
   </url>
   <url>

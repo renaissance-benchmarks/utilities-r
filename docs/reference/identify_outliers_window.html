@@ -14,7 +14,7 @@ really efficient and runs in O (n*w*log (w)) for window size w."><!-- mathjax --
     
     <a class="navbar-brand me-2" href="../index.html">rren</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,24 +54,24 @@ really efficient and runs in <code>O (n*w*log (w))</code> for window size <code>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">identify_outliers_window</span><span class="op">(</span><span class="va">data</span>, window <span class="op">=</span> <span class="fl">333</span>, limit <span class="op">=</span> <span class="fl">0.05</span>, slack <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">identify_outliers_window</span><span class="op">(</span><span class="va">.data</span>, .window <span class="op">=</span> <span class="fl">333</span>, .limit <span class="op">=</span> <span class="fl">0.05</span>, .slack <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>data</dt>
+    <dl><dt>.data</dt>
 <dd><p>sample vector</p></dd>
 
 
-<dt>window</dt>
+<dt>.window</dt>
 <dd><p>window size in samples</p></dd>
 
 
-<dt>limit</dt>
+<dt>.limit</dt>
 <dd><p>quantile that separates inliers from outliers</p></dd>
 
 
-<dt>slack</dt>
+<dt>.slack</dt>
 <dd><p>tolerated distance from limit quantile</p></dd>
 
 </dl></div>
@@ -90,7 +90,7 @@ really efficient and runs in <code>O (n*w*log (w))</code> for window size <code>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A sample of 100 is considered an outlier when near</span></span></span>
 <span class="r-in"><span><span class="co"># different values but not when near similar values.</span></span></span>
-<span class="r-in"><span><span class="fu">identify_outliers_window</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span> <span class="op">(</span><span class="fl">100</span>, <span class="fl">15</span><span class="op">:</span><span class="fl">25</span>, <span class="fl">95</span><span class="op">:</span><span class="fl">105</span>, <span class="fl">100</span><span class="op">)</span>, window <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">identify_outliers_window</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span> <span class="op">(</span><span class="fl">100</span>, <span class="fl">15</span><span class="op">:</span><span class="fl">25</span>, <span class="fl">95</span><span class="op">:</span><span class="fl">105</span>, <span class="fl">100</span><span class="op">)</span>, .window <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
 <span class="r-in"><span></span></span>

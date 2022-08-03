@@ -4,16 +4,16 @@
 \alias{identify_outliers_window}
 \title{Compute outlier flags using sliding window.}
 \usage{
-identify_outliers_window(data, window = 333, limit = 0.05, slack = 0.1)
+identify_outliers_window(.data, .window = 333, .limit = 0.05, .slack = 0.1)
 }
 \arguments{
-\item{data}{sample vector}
+\item{.data}{sample vector}
 
-\item{window}{window size in samples}
+\item{.window}{window size in samples}
 
-\item{limit}{quantile that separates inliers from outliers}
+\item{.limit}{quantile that separates inliers from outliers}
 
-\item{slack}{tolerated distance from limit quantile}
+\item{.slack}{tolerated distance from limit quantile}
 }
 \value{
 boolean vector of outlier flags
@@ -26,7 +26,7 @@ really efficient and runs in \code{O (n*w*log (w))} for window size \code{w}.
 \examples{
 # A sample of 100 is considered an outlier when near
 # different values but not when near similar values.
-identify_outliers_window (c (100, 15:25, 95:105, 100), window = 10)
+identify_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
 
 }
 \seealso{
