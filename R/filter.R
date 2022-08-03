@@ -86,9 +86,9 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 #' `(lo - range * slack, hi + range * slack)` with `lo` and `hi` denoting
 #' the `limit` and `1 - limit` quantiles and `range = hi - lo`.
 #'
-#' @param data sample vector
-#' @param limit quantile that separates inliers from outliers
-#' @param slack tolerated distance from limit quantile
+#' @param .data sample vector
+#' @param .limit quantile that separates inliers from outliers
+#' @param .slack tolerated distance from limit quantile
 #' @return boolean vector of outlier flags
 #'
 #' @examples
@@ -100,12 +100,12 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 #'
 #' @seealso [identify_outliers_window()]
 #' @export
-identify_outliers_global <- function (data, limit = 0.05, slack = 0.1) {
-    limits <- stats::quantile (data, c (limit, 1 - limit))
+identify_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1) {
+    limits <- stats::quantile (.data, c (.limit, 1 - .limit))
     range <- limits [2] - limits [1]
-    limit_lo <- limits [1] - range * slack
-    limit_hi <- limits [2] + range * slack
-    return (data < limit_lo | data > limit_hi)
+    limit_lo <- limits [1] - range * .slack
+    limit_hi <- limits [2] + range * .slack
+    return (.data < limit_lo | .data > limit_hi)
 }
 
 
@@ -115,36 +115,70 @@ identify_outliers_global <- function (data, limit = 0.05, slack = 0.1) {
 #' in a sliding window centered on each sample. Currently the computation is not
 #' really efficient and runs in `O (n*w*log (w))` for window size `w`.
 #'
-#' @param data sample vector
-#' @param window window size in samples
-#' @param limit quantile that separates inliers from outliers
-#' @param slack tolerated distance from limit quantile
+#' @param .data sample vector
+#' @param .window window size in samples
+#' @param .limit quantile that separates inliers from outliers
+#' @param .slack tolerated distance from limit quantile
 #' @return boolean vector of outlier flags
 #'
 #' @examples
 #' # A sample of 100 is considered an outlier when near
 #' # different values but not when near similar values.
-#' identify_outliers_window (c (100, 15:25, 95:105, 100), window = 10)
+#' identify_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
 #'
 #' @seealso [identify_outliers_global()]
 #' @export
-identify_outliers_window <- function (data, window = 333, limit = 0.05, slack = 0.1) {
+identify_outliers_window <- function (.data, .window = 333, .limit = 0.05, .slack = 0.1) {
 
     # For less data than window size use global filter.
-    if (length (data) < window) return (identify_outliers_global (data, limit, slack))
+    if (length (.data) < .window) return (identify_outliers_global (.data, .limit, .slack))
 
     # Compute window limits.
     # This is terribly inefficient.
     # Consider incremental computation.
-    positions <- seq.int (1, length (data) - window + 1)
-    limits <- sapply (positions, function (position) stats::quantile (data [position : (position + window - 1)], c (limit, 1 - limit)))
+    positions <- seq.int (1, length (.data) - .window + 1)
+    limits <- sapply (positions, function (position) stats::quantile (.data [position : (position + .window - 1)], c (.limit, 1 - .limit)))
     ranges <- limits [2, ] - limits [1, ]
-    limits_lo <- limits [1, ] - ranges * slack
-    limits_hi <- limits [2, ] + ranges * slack
+    limits_lo <- limits [1, ] - ranges * .slack
+    limits_hi <- limits [2, ] + ranges * .slack
 
     # Stretch limits across border samples.
-    limits_lo <- c (rep.int (first (limits_lo), floor ((window - 1) / 2)), limits_lo, rep (last (limits_lo), ceiling ((window - 1) / 2)))
-    limits_hi <- c (rep.int (first (limits_hi), floor ((window - 1) / 2)), limits_hi, rep (last (limits_hi), ceiling ((window - 1) / 2)))
+    limits_lo <- c (rep.int (first (limits_lo), floor ((.window - 1) / 2)), limits_lo, rep (last (limits_lo), ceiling ((.window - 1) / 2)))
+    limits_hi <- c (rep.int (first (limits_hi), floor ((.window - 1) / 2)), limits_hi, rep (last (limits_hi), ceiling ((.window - 1) / 2)))
 
-    return (data < limits_lo | data > limits_hi)
+    return (.data < limits_lo | .data > limits_hi)
+}
+
+
+#' Remove outliers.
+#'
+#' Uses [identify_outliers_global()] to identify outliers in given column. Then, removes the outlier rows.
+#'
+#' @param .data data
+#' @param .column column to identify outliers in
+#' @param ... parameters to [identify_outliers_global()]
+#' @return tibble with rows filtered
+#' @export
+remove_outliers_global <- function (.data, .column, ...) {
+    .data %>%
+        group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
+        filter (!identify_outliers_global ({{ .column }}, ...)) %>%
+        ungroup ()
+}
+
+
+#' Remove outliers using sliding window.
+#'
+#' Uses [identify_outliers_window()] to identify outliers in given column. Then, removes the outlier rows.
+#'
+#' @param .data data
+#' @param .column column to identify outliers in
+#' @param ... parameters to [identify_outliers_window()]
+#' @return tibble with rows filtered
+#' @export
+remove_outliers_window <- function (.data, .column, ...) {
+    .data %>%
+        group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
+        filter (!identify_outliers_window ({{ .column }}, ...)) %>%
+        ungroup ()
 }

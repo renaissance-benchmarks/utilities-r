@@ -7,8 +7,9 @@ reference:
     - starts_with ('load_')
 - title: Filtering results
   contents:
-    - starts_with ('preserve_')
     - starts_with ('identify_')
+    - starts_with ('preserve_')
+    - starts_with ('remove_')
 - title: Miscellaneous functions
   contents:
     - rren_example

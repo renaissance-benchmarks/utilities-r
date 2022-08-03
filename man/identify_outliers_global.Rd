@@ -4,14 +4,14 @@
 \alias{identify_outliers_global}
 \title{Compute outlier flags.}
 \usage{
-identify_outliers_global(data, limit = 0.05, slack = 0.1)
+identify_outliers_global(.data, .limit = 0.05, .slack = 0.1)
 }
 \arguments{
-\item{data}{sample vector}
+\item{.data}{sample vector}
 
-\item{limit}{quantile that separates inliers from outliers}
+\item{.limit}{quantile that separates inliers from outliers}
 
-\item{slack}{tolerated distance from limit quantile}
+\item{.slack}{tolerated distance from limit quantile}
 }
 \value{
 boolean vector of outlier flags
