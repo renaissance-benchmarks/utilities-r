@@ -11,14 +11,14 @@ load_path_json(
 )
 }
 \arguments{
-\item{data_path}{data path to load from}
+\item{data_path}{Data path to load from.}
 
-\item{pattern}{regular expression pattern to match}
+\item{pattern}{Regular expression pattern to match.}
 
-\item{cache}{file name to use as data cache}
+\item{cache}{File name to use as data cache.}
 }
 \value{
-tibble with loaded data
+Tibble with loaded data.
 }
 \description{
 Load data from given path recursively.

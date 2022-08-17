@@ -7,14 +7,14 @@
 remove_outliers_global(.data, .column, ...)
 }
 \arguments{
-\item{.data}{data}
+\item{.data}{Data.}
 
-\item{.column}{column to identify outliers in}
+\item{.column}{Column to identify outliers in.}
 
-\item{...}{parameters to \code{\link[=identify_outliers_global]{identify_outliers_global()}}}
+\item{...}{Parameters to \code{\link[=identify_outliers_global]{identify_outliers_global()}}.}
 }
 \value{
-tibble with rows filtered
+Tibble with rows filtered.
 }
 \description{
 Uses \code{\link[=identify_outliers_global]{identify_outliers_global()}} to identify outliers in given column. Then, removes the outlier rows.

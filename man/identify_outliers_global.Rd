@@ -7,14 +7,14 @@
 identify_outliers_global(.data, .limit = 0.05, .slack = 0.1)
 }
 \arguments{
-\item{.data}{sample vector}
+\item{.data}{Sample vector.}
 
-\item{.limit}{quantile that separates inliers from outliers}
+\item{.limit}{Quantile that separates inliers from outliers.}
 
-\item{.slack}{tolerated distance from limit quantile}
+\item{.slack}{Tolerated distance from limit quantile.}
 }
 \value{
-boolean vector of outlier flags
+Boolean vector of outlier flags.
 }
 \description{
 The outlier detection method is based on quantiles but permits retaining short tails.

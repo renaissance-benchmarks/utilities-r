@@ -7,14 +7,14 @@
 preserve_last_n(.data, .n, .max_share = 0.5)
 }
 \arguments{
-\item{.data}{measurement results to filter}
+\item{.data}{Measurement results to filter.}
 
-\item{.n}{how many samples taken from end to preserve}
+\item{.n}{How many samples taken from end to preserve.}
 
-\item{.max_share}{maximum share of samples to preserve}
+\item{.max_share}{Maximum share of samples to preserve.}
 }
 \value{
-filtered measurement results
+Filtered measurement results.
 }
 \description{
 Useful for extracting a set of representative samples for each run,

@@ -7,10 +7,10 @@
 load_file_json(data_file)
 }
 \arguments{
-\item{data_file}{data file to load from}
+\item{data_file}{Data file to load from.}
 }
 \value{
-tibble with loaded data
+Tibble with loaded data.
 }
 \description{
 Load data from given file.

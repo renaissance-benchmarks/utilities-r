@@ -8,16 +8,16 @@
 #' Can specify a maximum share of samples that the function
 #' preserves. Runs with fewer samples are removed entirely.
 #'
-#' @param .data measurement results to filter
-#' @param .n how many samples taken from end to preserve
-#' @param .max_share maximum share of samples to preserve
-#' @return filtered measurement results
+#' @param .data Measurement results to filter.
+#' @param .n How many samples taken from end to preserve.
+#' @param .max_share Maximum share of samples to preserve.
+#' @return Filtered measurement results.
 #' @export
 preserve_last_n <- function (.data, .n, .max_share = 0.5) {
     .data %>%
         group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-        filter (.data $ index > max (.data $ index) - .n) %>%
-        filter (min (.data $ index) > max (.data $ index) * .max_share) %>%
+        filter (.data $ index > max (.data $ index) - .env $ .n) %>%
+        filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
         ungroup ()
 }
 
@@ -32,11 +32,11 @@ preserve_last_n <- function (.data, .n, .max_share = 0.5) {
 #' When equal sample count per run is requested,
 #' it is chosen to be the median sample count.
 #'
-#' @param .data measurement results to filter
-#' @param .sec how old samples taken from end to preserve
-#' @param .max_share maximum share of samples to preserve
-#' @param .equal_count_per_run make sample count per run equal
-#' @return filtered measurement results
+#' @param .data Measurement results to filter.
+#' @param .sec How old samples taken from end to preserve.
+#' @param .max_share Maximum share of samples to preserve.
+#' @param .equal_count_per_run Make sample count per run equal.
+#' @return Filtered measurement results.
 #' @export
 preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_run = FALSE) {
 
@@ -45,8 +45,8 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
         # A tibble giving sample counts per run if equal count per run were not done.
         counts_per_run <- .data %>%
             group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-            filter (.data $ total > max (.data $ total) - .sec) %>%
-            filter (min (.data $ index) > max (.data $ index) * .max_share) %>%
+            filter (.data $ total > max (.data $ total) - .env $ .sec) %>%
+            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
             summarize (.count = n (), .groups = 'drop')
 
         # Median sample count is chosen for each compatible combination.
@@ -59,7 +59,7 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
             inner_join (counts_per_c, by = c ('vm', 'benchmark')) %>%
             group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
             filter (.data $ index > max (.data $ index) - .data $ .count) %>%
-            filter (min (.data $ index) > max (.data $ index) * .max_share) %>%
+            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
             select (-.data $ .count) %>%
             ungroup ()
 
@@ -67,8 +67,8 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 
         result <- .data %>%
             group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-            filter (.data $ total > max (.data $ total) - .sec) %>%
-            filter (min (.data $ index) > max (.data $ index) * .max_share) %>%
+            filter (.data $ total > max (.data $ total) - .env $ .sec) %>%
+            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
             ungroup ()
     }
 
@@ -86,10 +86,10 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 #' `(lo - range * slack, hi + range * slack)` with `lo` and `hi` denoting
 #' the `limit` and `1 - limit` quantiles and `range = hi - lo`.
 #'
-#' @param .data sample vector
-#' @param .limit quantile that separates inliers from outliers
-#' @param .slack tolerated distance from limit quantile
-#' @return boolean vector of outlier flags
+#' @param .data Sample vector.
+#' @param .limit Quantile that separates inliers from outliers.
+#' @param .slack Tolerated distance from limit quantile.
+#' @return Boolean vector of outlier flags.
 #'
 #' @examples
 #' # An outlier gets flagged.
@@ -115,11 +115,11 @@ identify_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1) {
 #' in a sliding window centered on each sample. Currently the computation is not
 #' really efficient and runs in `O (n*w*log (w))` for window size `w`.
 #'
-#' @param .data sample vector
-#' @param .window window size in samples
-#' @param .limit quantile that separates inliers from outliers
-#' @param .slack tolerated distance from limit quantile
-#' @return boolean vector of outlier flags
+#' @param .data Sample vector.
+#' @param .window Window size in samples.
+#' @param .limit Quantile that separates inliers from outliers.
+#' @param .slack Tolerated distance from limit quantile.
+#' @return Boolean vector of outlier flags.
 #'
 #' @examples
 #' # A sample of 100 is considered an outlier when near
@@ -154,10 +154,10 @@ identify_outliers_window <- function (.data, .window = 333, .limit = 0.05, .slac
 #'
 #' Uses [identify_outliers_global()] to identify outliers in given column. Then, removes the outlier rows.
 #'
-#' @param .data data
-#' @param .column column to identify outliers in
-#' @param ... parameters to [identify_outliers_global()]
-#' @return tibble with rows filtered
+#' @param .data Data.
+#' @param .column Column to identify outliers in.
+#' @param ... Parameters to [identify_outliers_global()].
+#' @return Tibble with rows filtered.
 #' @export
 remove_outliers_global <- function (.data, .column, ...) {
     .data %>%
@@ -171,10 +171,10 @@ remove_outliers_global <- function (.data, .column, ...) {
 #'
 #' Uses [identify_outliers_window()] to identify outliers in given column. Then, removes the outlier rows.
 #'
-#' @param .data data
-#' @param .column column to identify outliers in
-#' @param ... parameters to [identify_outliers_window()]
-#' @return tibble with rows filtered
+#' @param .data Data.
+#' @param .column Column to identify outliers in.
+#' @param ... Parameters to [identify_outliers_window()].
+#' @return Tibble with rows filtered.
 #' @export
 remove_outliers_window <- function (.data, .column, ...) {
     .data %>%

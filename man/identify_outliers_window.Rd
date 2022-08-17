@@ -7,16 +7,16 @@
 identify_outliers_window(.data, .window = 333, .limit = 0.05, .slack = 0.1)
 }
 \arguments{
-\item{.data}{sample vector}
+\item{.data}{Sample vector.}
 
-\item{.window}{window size in samples}
+\item{.window}{Window size in samples.}
 
-\item{.limit}{quantile that separates inliers from outliers}
+\item{.limit}{Quantile that separates inliers from outliers.}
 
-\item{.slack}{tolerated distance from limit quantile}
+\item{.slack}{Tolerated distance from limit quantile.}
 }
 \value{
-boolean vector of outlier flags
+Boolean vector of outlier flags.
 }
 \description{
 Same as \code{\link[=identify_outliers_global]{identify_outliers_global()}} except the quantile computation is performed

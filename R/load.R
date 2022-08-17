@@ -126,8 +126,8 @@ extract_data <- function (data_json, benchmark, version, meta_read) {
 #' - `run` is a unique identifier of the run
 #' - `benchmark` is the name of the benchmark
 #'
-#' @param data_file data file to load from
-#' @return tibble with loaded data
+#' @param data_file Data file to load from.
+#' @return Tibble with loaded data.
 #'
 #' @examples
 #' load_file_json (rren_example ('results-small-version-5.json'))
@@ -146,7 +146,7 @@ load_file_json <- function (data_file) {
     # Use short config digest as vm id.
     meta_read <- extract_meta (data_json, version) %>%
         mutate (
-            run = data_file,
+            run = .env $ data_file,
             vm = digest::digest (c (.data $ vm_name, .data $ vm_version, .data $ vm_configuration), algo = 'murmur32'))
 
     # Extract benchmark data individually.
@@ -161,10 +161,10 @@ load_file_json <- function (data_file) {
 
 #' Load data from given path recursively.
 #'
-#' @param data_path data path to load from
-#' @param pattern regular expression pattern to match
-#' @param cache file name to use as data cache
-#' @return tibble with loaded data
+#' @param data_path Data path to load from.
+#' @param pattern Regular expression pattern to match.
+#' @param cache File name to use as data cache.
+#' @return Tibble with loaded data.
 #'
 #' @examples
 #' load_path_json (rren_example (), pattern = '^results-small-version-[0-9]+\\.json$')

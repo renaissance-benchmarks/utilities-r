@@ -6,7 +6,7 @@
 #' @import stringr
 #' @import magrittr
 #' @import checkmate
-#' @importFrom rlang .data
+#' @importFrom rlang .data .env
 "_PACKAGE"
 
 ## usethis namespace: start

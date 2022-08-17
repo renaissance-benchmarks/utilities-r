@@ -7,16 +7,16 @@
 preserve_last_sec(.data, .sec, .max_share = 0.5, .equal_count_per_run = FALSE)
 }
 \arguments{
-\item{.data}{measurement results to filter}
+\item{.data}{Measurement results to filter.}
 
-\item{.sec}{how old samples taken from end to preserve}
+\item{.sec}{How old samples taken from end to preserve.}
 
-\item{.max_share}{maximum share of samples to preserve}
+\item{.max_share}{Maximum share of samples to preserve.}
 
-\item{.equal_count_per_run}{make sample count per run equal}
+\item{.equal_count_per_run}{Make sample count per run equal.}
 }
 \value{
-filtered measurement results
+Filtered measurement results.
 }
 \description{
 Useful for extracting a set of representative samples for each run,
