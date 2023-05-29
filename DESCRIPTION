@@ -9,20 +9,19 @@ BugReports: https://github.com/renaissance-benchmarks/utilities-r/issues
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list (markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.1.8)
 Config/testthat/edition: 3
 Imports: 
-    changepoint (>= 2.2.3),
-    checkmate (>= 2.1.0),
-    digest (>= 0.6.20),
-    dplyr (>= 1.0.9),
-    fs (>= 1.5.2),
+    changepoint (>= 2.2.4),
+    checkmate (>= 2.2.0),
+    digest (>= 0.6.31),
+    dplyr (>= 1.1.2),
+    fs (>= 1.6.2),
     glue (>= 1.6.2),
-    jsonlite (>= 1.8.0),
+    jsonlite (>= 1.8.4),
     logger (>= 0.2.2),
-    magrittr (>= 2.0.3),
-    rlang (>= 1.0.4),
-    stringr (>= 1.4.0),
-    tibble (>= 3.1.8)
+    rlang (>= 1.1.1),
+    stringr (>= 1.5.0),
+    tibble (>= 3.2.1)

@@ -12,7 +12,8 @@
 #' @param .penalty A numerical penalty or `barrett` for penalty computation from [Barrett et al.](https://doi.org/10.1145/3133876).
 #' @return Vector of segment starting points.
 #' @export
-locate_segments <- function (.data, .penalty) {
+locate_vector_segments <- function (.data, .penalty) {
+    assert_vector (.data, strict = TRUE)
 
     # Make sure samples are not integer because the library fails silently on integer inputs.
     .data <- as.numeric (.data)

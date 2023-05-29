@@ -14,10 +14,12 @@
 #' @return Filtered measurement results.
 #' @export
 preserve_last_n <- function (.data, .n, .max_share = 0.5) {
-    .data %>%
-        group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-        filter (.data $ index > max (.data $ index) - .env $ .n) %>%
-        filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
+    assert_renaissance (.data)
+
+    .data |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        filter (.data $ index > max (.data $ index) - .env $ .n) |>
+        filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) |>
         ungroup ()
 }
 
@@ -39,36 +41,37 @@ preserve_last_n <- function (.data, .n, .max_share = 0.5) {
 #' @return Filtered measurement results.
 #' @export
 preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_run = FALSE) {
+    assert_renaissance (.data)
 
     if (.equal_count_per_run) {
 
         # A tibble giving sample counts per run if equal count per run were not done.
-        counts_per_run <- .data %>%
-            group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-            filter (.data $ total > max (.data $ total) - .env $ .sec) %>%
-            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
+        counts_per_run <- .data |>
+            group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+            filter (.data $ total > max (.data $ total) - .env $ .sec) |>
+            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) |>
             summarize (.count = n (), .groups = 'drop')
 
         # Median sample count is chosen for each compatible combination.
-        counts_per_c <- counts_per_run %>%
-            group_by (.data $ vm, .data $ benchmark) %>%
+        counts_per_c <- counts_per_run |>
+            group_by (.data $ vm, .data $ benchmark) |>
             summarize (.count = stats::median (.data $ .count), .groups = 'drop')
 
         # Inject desired count into data and filter accordingly.
-        result <- .data %>%
-            inner_join (counts_per_c, by = c ('vm', 'benchmark')) %>%
-            group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-            filter (.data $ index > max (.data $ index) - .data $ .count) %>%
-            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
-            select (-.data $ .count) %>%
+        result <- .data |>
+            inner_join (counts_per_c, by = c ('vm', 'benchmark')) |>
+            group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+            filter (.data $ index > max (.data $ index) - .data $ .count) |>
+            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) |>
+            select (-.data $ .count) |>
             ungroup ()
 
     } else {
 
-        result <- .data %>%
-            group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-            filter (.data $ total > max (.data $ total) - .env $ .sec) %>%
-            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) %>%
+        result <- .data |>
+            group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+            filter (.data $ total > max (.data $ total) - .env $ .sec) |>
+            filter (min (.data $ index) > max (.data $ index) * .env $ .max_share) |>
             ungroup ()
     }
 
@@ -100,7 +103,9 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 #'
 #' @seealso [identify_outliers_window()]
 #' @export
-identify_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1) {
+identify_vector_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1) {
+    assert_vector (.data, strict = TRUE)
+
     limits <- stats::quantile (.data, c (.limit, 1 - .limit))
     range <- limits [2] - limits [1]
     limit_lo <- limits [1] - range * .slack
@@ -128,7 +133,8 @@ identify_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1) {
 #'
 #' @seealso [identify_outliers_global()]
 #' @export
-identify_outliers_window <- function (.data, .window = 333, .limit = 0.05, .slack = 0.1) {
+identify_vector_outliers_window <- function (.data, .window = 333, .limit = 0.05, .slack = 0.1) {
+    assert_vector (.data, strict = TRUE)
 
     # For less data than window size use global filter.
     if (length (.data) < .window) return (identify_outliers_global (.data, .limit, .slack))
@@ -160,9 +166,11 @@ identify_outliers_window <- function (.data, .window = 333, .limit = 0.05, .slac
 #' @return Tibble with rows filtered.
 #' @export
 remove_outliers_global <- function (.data, .column, ...) {
-    .data %>%
-        group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-        filter (!identify_outliers_global ({{ .column }}, ...)) %>%
+    assert_renaissance (.data)
+
+    .data |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        filter (!identify_vector_outliers_global ({{ .column }}, ...)) |>
         ungroup ()
 }
 
@@ -177,8 +185,10 @@ remove_outliers_global <- function (.data, .column, ...) {
 #' @return Tibble with rows filtered.
 #' @export
 remove_outliers_window <- function (.data, .column, ...) {
-    .data %>%
-        group_by (.data $ vm, .data $ run, .data $ benchmark) %>%
-        filter (!identify_outliers_window ({{ .column }}, ...)) %>%
+    assert_renaissance (.data)
+
+    .data |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        filter (!identify_vector_outliers_window ({{ .column }}, ...)) |>
         ungroup ()
 }

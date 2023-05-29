@@ -2,19 +2,19 @@
 # Helpers
 
 add_index <- function (data_read) {
-    data_read %>% mutate (index = row_number ())
+    data_read |> mutate (index = row_number ())
 }
 
 add_time_from_nanos <- function (data_read) {
-    data_read %>% mutate (time = .data $ nanos / 1e9)
+    data_read |> mutate (time = .data $ nanos / 1e9)
 }
 
 add_time_from_duration <- function (data_read) {
-    data_read %>% mutate (time = .data $ duration_ns / 1e9)
+    data_read |> mutate (time = .data $ duration_ns / 1e9)
 }
 
 add_cumulative_time_from_uptime <- function (data_read) {
-    data_read %>% mutate (total = (.data $ uptime_ns + .data $ duration_ns) / 1e9)
+    data_read |> mutate (total = (.data $ uptime_ns + .data $ duration_ns) / 1e9)
 }
 
 add_cumulative_time_from_time_unix <- function (data_read) {
@@ -22,18 +22,18 @@ add_cumulative_time_from_time_unix <- function (data_read) {
     # Using UNIX time reduces resolution to miliseconds.
     # As a compromise we use UNIX time to strech
     # accumulated repetition time.
-    total <- cumsum (data_read %>% pull (.data $ time))
-    unix_beg <- data_read %>% slice_head () %>% pull (.data $ unixts.before)
-    unix_end <- data_read %>% slice_tail () %>% pull (.data $ unixts.after)
+    total <- cumsum (data_read |> pull (.data $ time))
+    unix_beg <- data_read |> slice_head () |> pull (.data $ unixts.before)
+    unix_end <- data_read |> slice_tail () |> pull (.data $ unixts.after)
     unix_range <- (unix_end - unix_beg) / 1e3
     time_range <- last (total)
     scale <- unix_range / time_range
     total <- total * scale
-    data_read %>% add_column (total)
+    data_read |> add_column (total)
 }
 
 normalize_column_names <- function (data_read) {
-    data_read %>% rename_with (str_replace_all, everything (), '[-:]', '_')
+    data_read |> rename_with (str_replace_all, everything (), '[-:]', '_')
 }
 
 
@@ -70,13 +70,13 @@ extract_data_versions_1_2 <- function (data_json, benchmark) {
     data_read <- as_tibble (data_json [['results']] [[benchmark]])
     assert_tibble (data_read, min.rows = 1)
 
-    data_read %>%
+    data_read |>
         # Transform basic columns into canonical form.
-        add_index () %>%
-        add_time_from_nanos () %>%
-        add_cumulative_time_from_time_unix () %>%
+        add_index () |>
+        add_time_from_nanos () |>
+        add_cumulative_time_from_time_unix () |>
         # Preserve optional columns not transformed into canonical form.
-        select (-.data $ nanos, -.data $ unixts.before, -.data $ unixts.after) %>%
+        select (!c (nanos, unixts.before, unixts.after)) |>
         normalize_column_names ()
 }
 
@@ -86,13 +86,13 @@ extract_data_version_5 <- function (data_json, benchmark) {
     data_read <- as_tibble (data_json [['data']] [[benchmark]] [['results']])
     assert_tibble (data_read, min.rows = 1)
 
-    data_read %>%
+    data_read |>
         # Transform basic columns into canonical form.
-        add_index () %>%
-        add_time_from_duration () %>%
-        add_cumulative_time_from_uptime () %>%
+        add_index () |>
+        add_time_from_duration () |>
+        add_cumulative_time_from_uptime () |>
         # Preserve optional columns not transformed into canonical form.
-        select (-.data $ duration_ns, -.data $ uptime_ns) %>%
+        select (!c (duration_ns, uptime_ns)) |>
         normalize_column_names ()
 }
 
@@ -107,7 +107,7 @@ extract_data <- function (data_json, benchmark, version, meta_read) {
 
 
 # ----------------------------------------------------------------
-# Public
+# Load data
 
 #' Load data from given file.
 #'
@@ -144,10 +144,10 @@ load_file_json <- function (data_file) {
     # Extract meta.
     # Use file name as run id.
     # Use short config digest as vm id.
-    meta_read <- extract_meta (data_json, version) %>%
+    meta_read <- extract_meta (data_json, version) |>
         mutate (
-            run = .env $ data_file,
-            vm = digest::digest (c (.data $ vm_name, .data $ vm_version, .data $ vm_configuration), algo = 'murmur32'))
+            run = factor (.env $ data_file),
+            vm = factor (digest::digest (c (.data $ vm_name, .data $ vm_version, .data $ vm_configuration), algo = 'murmur32')))
 
     # Extract benchmark data individually.
     data_list <- lapply (benchmarks, function (benchmark) extract_data (data_json, benchmark, version, meta_read))
@@ -192,3 +192,68 @@ load_path_json <- function (data_path, pattern = '\\.json(|\\.gz|\\.xz|\\.bz2)$'
 
     return (data_read)
 }
+
+
+# ----------------------------------------------------------------
+# Sanity
+
+check_columns <- function (.data, .names, .test, .type) {
+    for (name in .names) {
+        if (!name %in% colnames (.data)) return (glue::glue ('Column {name} must be present'))
+        if (!.test (.data [[name]])) return (glue::glue ('Column {name} must be {.type}'))
+    }
+    return (TRUE)
+}
+
+
+#' Check whether data resembles typical measurement results.
+#'
+#' @details
+#'
+#' Performs basic sanity checking on data,
+#' including presence of essential columns.
+#'
+#' @param .data Measurement results to test.
+#' @return Error message or TRUE.
+#'
+#' @export
+check_renaissance <- function (.data) {
+
+    # The basic structure is a tibble.
+    res <- check_tibble (.data)
+    if (!isTRUE (res)) return (res)
+
+    # Index column is an integer.
+    res <- check_columns (.data, c ('index'), test_integer, 'an integer')
+    if (!isTRUE (res)) return (res)
+
+    # Basic timing columns are numeric.
+    res <- check_columns (.data, c ('time', 'total'), test_numeric, 'a number')
+    if (!isTRUE (res)) return (res)
+
+    # Basic metadata columns are factorial.
+    res <- check_columns (.data, c ('vm', 'vm_name', 'vm_version', 'vm_configuration', 'run', 'benchmark'), test_factor, 'a factor')
+    if (!isTRUE (res)) return (res)
+
+    return (TRUE)
+}
+
+
+#' Check whether data resembles typical measurement results.
+#'
+#' @param .data Measurement results to test.
+#' @return Invisible .data or an exception.
+#'
+#' @seealso [check_renaissance()]
+#' @export
+assert_renaissance <- makeAssertionFunction (check_renaissance)
+
+
+#' Check whether data resembles typical measurement results.
+#'
+#' @param .data Measurement results to test.
+#' @return An expectation.
+#'
+#' @seealso [check_renaissance()]
+#' @export
+expect_renaissance <- makeExpectationFunction (check_renaissance)
