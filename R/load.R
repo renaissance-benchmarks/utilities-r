@@ -227,8 +227,16 @@ check_renaissance <- function (.data) {
     res <- check_columns (.data, c ('index'), test_integer, 'an integer')
     if (!isTRUE (res)) return (res)
 
+    # Index column is non negative.
+    res <- check_columns (.data, c ('index'), function (x) all (x >= 0), 'non negative')
+    if (!isTRUE (res)) return (res)
+
     # Basic timing columns are numeric.
     res <- check_columns (.data, c ('time', 'total'), test_numeric, 'a number')
+    if (!isTRUE (res)) return (res)
+
+    # Basic timing columns are non negative.
+    res <- check_columns (.data, c ('time', 'total'), function (x) all (x >= 0), 'non negative')
     if (!isTRUE (res)) return (res)
 
     # Basic metadata columns are factorial.

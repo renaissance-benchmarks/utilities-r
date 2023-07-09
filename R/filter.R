@@ -101,7 +101,7 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 #' # No outlier gets flagged with short tails.
 #' identify_outliers_global (1:10)
 #'
-#' @seealso [identify_outliers_window()]
+#' @seealso [identify_vector_outliers_window()]
 #' @export
 identify_vector_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1) {
     assert_vector (.data, strict = TRUE)
@@ -131,7 +131,7 @@ identify_vector_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1)
 #' # different values but not when near similar values.
 #' identify_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
 #'
-#' @seealso [identify_outliers_global()]
+#' @seealso [identify_vector_outliers_global()]
 #' @export
 identify_vector_outliers_window <- function (.data, .window = 333, .limit = 0.05, .slack = 0.1) {
     assert_vector (.data, strict = TRUE)
@@ -158,11 +158,11 @@ identify_vector_outliers_window <- function (.data, .window = 333, .limit = 0.05
 
 #' Remove outliers.
 #'
-#' Uses [identify_outliers_global()] to identify outliers in given column. Then, removes the outlier rows.
+#' Uses [identify_vector_outliers_global()] to identify outliers in given column. Then, removes the outlier rows.
 #'
 #' @param .data Data.
 #' @param .column Column to identify outliers in.
-#' @param ... Parameters to [identify_outliers_global()].
+#' @param ... Parameters to [identify_vector_outliers_global()].
 #' @return Tibble with rows filtered.
 #' @export
 remove_outliers_global <- function (.data, .column, ...) {
@@ -177,11 +177,11 @@ remove_outliers_global <- function (.data, .column, ...) {
 
 #' Remove outliers using sliding window.
 #'
-#' Uses [identify_outliers_window()] to identify outliers in given column. Then, removes the outlier rows.
+#' Uses [identify_vector_outliers_window()] to identify outliers in given column. Then, removes the outlier rows.
 #'
 #' @param .data Data.
 #' @param .column Column to identify outliers in.
-#' @param ... Parameters to [identify_outliers_window()].
+#' @param ... Parameters to [identify_vector_outliers_window()].
 #' @return Tibble with rows filtered.
 #' @export
 remove_outliers_window <- function (.data, .column, ...) {
@@ -191,4 +191,58 @@ remove_outliers_window <- function (.data, .column, ...) {
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
         filter (!identify_vector_outliers_window ({{ .column }}, ...)) |>
         ungroup ()
+}
+
+
+#' Group helper for list outliers.
+#'
+#' Given the outlier flags, the index and the total time,
+#' returns a list of outlier positions and intervals.
+#'
+#' @details
+#'
+#' The computation assumes that an outlier impacts a single repetition,
+#' the outlier interval is therefore the interval of that repetition.
+list_outliers_group_helper <- function (.flags, .index, .total) {
+    tibble (
+        total_before = c (0, head (.total, -1)) [.flags],
+        total_after = .total [.flags],
+        index = .index [.flags],
+    )
+}
+
+
+#' List outliers.
+#'
+#' Uses [identify_vector_outliers_global()] to identify outliers in given column. Then, returns the list of outlier positions and intervals.
+#'
+#' @param .data Data.
+#' @param .column Column to identify outliers in.
+#' @param ... Parameters to [identify_vector_outliers_global()].
+#' @return Tibble with outlier list.
+#' @export
+list_outliers_global <- function (.data, .column, ...) {
+    assert_renaissance (.data)
+
+    .data |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        reframe (list_outliers_group_helper (identify_vector_outliers_global ({{ .column }}, ...), .data $ index, .data $ total))
+}
+
+
+#' List outliers using sliding window.
+#'
+#' Uses [identify_vector_outliers_window()] to identify outliers in given column. Then, returns the list of outlier positions and intervals.
+#'
+#' @param .data Data.
+#' @param .column Column to identify outliers in.
+#' @param ... Parameters to [identify_vector_outliers_window()].
+#' @return Tibble with outlier list.
+#' @export
+list_outliers_window <- function (.data, .column, ...) {
+    assert_renaissance (.data)
+
+    .data |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        reframe (list_outliers_group_helper (identify_vector_outliers_window ({{ .column }}, ...), .data $ index, .data $ total))
 }
