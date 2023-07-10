@@ -4,7 +4,7 @@
 \alias{expect_renaissance}
 \title{Check whether data resembles typical measurement results.}
 \usage{
-expect_renaissance(.data, info = NULL, label = vname(x))
+expect_renaissance(.data, info = NULL, label = vname(.data))
 }
 \arguments{
 \item{.data}{Measurement results to test.}

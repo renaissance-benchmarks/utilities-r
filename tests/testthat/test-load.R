@@ -1,4 +1,5 @@
 test_that ('loading JSON version 1 works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-1.json'))
     expect_renaissance (test_data)
     expect_tibble (test_data, nrow = 6)
@@ -7,6 +8,7 @@ test_that ('loading JSON version 1 works', {
 })
 
 test_that ('loading JSON version 2 works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-2.json'))
     expect_renaissance (test_data)
     expect_tibble (test_data, nrow = 6)
@@ -15,6 +17,7 @@ test_that ('loading JSON version 2 works', {
 })
 
 test_that ('loading JSON version 5 works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-5.json'))
     expect_renaissance (test_data)
     expect_tibble (test_data, nrow = 6)
@@ -23,6 +26,7 @@ test_that ('loading JSON version 5 works', {
 })
 
 test_that ('loading multiple JSON files works', {
+    log_threshold (WARN)
     test_data <- load_path_json (rren_example (), '^results-small-version-[0-9]+\\.json$')
     expect_renaissance (test_data)
     expect_tibble (test_data, nrow = 18)

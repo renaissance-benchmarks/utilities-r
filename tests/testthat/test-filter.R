@@ -11,22 +11,26 @@ test_that ('window outlier identification works', {
 })
 
 test_that ('global outlier removal works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-5.json'))
     expect_tibble (remove_outliers_global (test_data, time), nrow = 4)
 })
 
 test_that ('window outlier removal works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-5.json'))
     expect_tibble (remove_outliers_window (test_data, time, .window = 2), nrow = 6)
     expect_tibble (remove_outliers_window (test_data, time, .window = 3), nrow = 4)
 })
 
 test_that ('global outlier listing works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-5.json'))
     expect_tibble (list_outliers_global (test_data, time), nrow = 2)
 })
 
 test_that ('window outlier listing works', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-5.json'))
     expect_tibble (list_outliers_window (test_data, time, .window = 2), nrow = 0)
     expect_tibble (list_outliers_window (test_data, time, .window = 3), nrow = 2)

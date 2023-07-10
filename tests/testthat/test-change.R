@@ -4,6 +4,7 @@ test_that ('segment location works', {
 })
 
 test_that ('segment listing works on actual data', {
+    log_threshold (WARN)
     test_data <- load_file_json (rren_example ('results-small-version-5.json'))
     expect_tibble (list_segment_boundaries (test_data, time, 100), nrow = 0)
 })

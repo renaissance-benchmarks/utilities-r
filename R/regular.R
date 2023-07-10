@@ -102,12 +102,12 @@ list_regular_artifacts_by_interval <- function (.artifacts, .dimensions, .min_sh
         filter (.data $ current & !.data $ previous) |>
         group_by (.data $ total, .add = TRUE) |>
         summarize (.groups = 'drop') |>
-        rename (total_before = .data $ total)
+        rename (total_before = 'total')
     result_after <- result_interim |>
         filter (.data $ previous & !.data $ current) |>
         group_by (.data $ total, .add = TRUE) |>
         summarize (.groups = 'drop') |>
-        rename (total_after = .data $ total)
+        rename (total_after = 'total')
 
     result <- inner_join (result_before, result_after, by = c ('vm', 'benchmark'))
 

@@ -256,7 +256,10 @@ check_renaissance <- function (.data) {
 #'
 #' @seealso [check_renaissance()]
 #' @export
-assert_renaissance <- makeAssertionFunction (check_renaissance)
+assert_renaissance <- function (.data, .var.name = vname (.data), add = NULL) {
+    # Does not use `makeAssertionFunction` because check complains about arguments.
+    makeAssertion (.data, check_renaissance (.data), .var.name, add)
+}
 
 
 #' Check whether data resembles typical measurement results.
@@ -268,4 +271,7 @@ assert_renaissance <- makeAssertionFunction (check_renaissance)
 #'
 #' @seealso [check_renaissance()]
 #' @export
-expect_renaissance <- makeExpectationFunction (check_renaissance)
+expect_renaissance <- function (.data, info = NULL, label = vname (.data)) {
+    # Does not use `makeExpectationFunction` because check complains about arguments.
+    makeExpectation (.data, check_renaissance (.data), info = info, label = label)
+}
