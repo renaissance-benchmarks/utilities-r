@@ -55,6 +55,11 @@ locate_vector_segments <- function (.data, .penalty) {
 #' (otherwise segments would be assigned differently).
 #'
 #' Head and tail boundaries are not included.
+#'
+#' @param .positions Segment positions.
+#' @param .index Data index.
+#' @param .total Data total.
+#' @return Tibble with segment boundary list.
 list_segment_boundaries_group_helper <- function (.positions, .index, .total) {
     padded_middle <- (c (NA, 0, .total) + c (NA, .total, NA)) / 2
     tibble (
@@ -67,11 +72,11 @@ list_segment_boundaries_group_helper <- function (.positions, .index, .total) {
 
 #' List segment boundaries.
 #'
-#' Uses [identify_vector_segments()] to identify segments in given column. Then, returns the list of segment boundary positions and intervals.
+#' Uses [locate_vector_segments()] to identify segments in given column. Then, returns the list of segment boundary positions and intervals.
 #'
 #' @param .data Data.
 #' @param .column Column to identify segments in.
-#' @param ... Parameters to [identify_vector_segments()].
+#' @param ... Parameters to [locate_vector_segments()].
 #' @return Tibble with segment boundary list.
 #' @export
 list_segment_boundaries <- function (.data, .column, ...) {

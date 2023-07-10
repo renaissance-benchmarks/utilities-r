@@ -31,7 +31,7 @@ rren_artificial <- function (data, vm_count = 1L, run_count = 1L, benchmark_coun
             vm_name = factor (glue::glue ('Name {x}')),
             vm_version = factor (glue::glue ('Version {x}')),
             vm_configuration = factor (glue::glue ('Configuration {x}')),
-            vm = factor (digest::digest (c (vm_name, vm_version, vm_configuration), algo = 'murmur32'))))
+            vm = factor (digest::digest (c (.data $ vm_name, .data $ vm_version, .data $ vm_configuration), algo = 'murmur32'))))
 
     result_times_vm <- bind_rows (list_times_vm)
 

@@ -1,4 +1,5 @@
 library (testthat)
+library (logger)
 library (rren)
 
 log_threshold (WARN)

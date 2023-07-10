@@ -11,11 +11,11 @@ remove_outliers_global(.data, .column, ...)
 
 \item{.column}{Column to identify outliers in.}
 
-\item{...}{Parameters to \code{\link[=identify_outliers_global]{identify_outliers_global()}}.}
+\item{...}{Parameters to \code{\link[=identify_vector_outliers_global]{identify_vector_outliers_global()}}.}
 }
 \value{
 Tibble with rows filtered.
 }
 \description{
-Uses \code{\link[=identify_outliers_global]{identify_outliers_global()}} to identify outliers in given column. Then, removes the outlier rows.
+Uses \code{\link[=identify_vector_outliers_global]{identify_vector_outliers_global()}} to identify outliers in given column. Then, removes the outlier rows.
 }

@@ -96,10 +96,10 @@ preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_r
 #'
 #' @examples
 #' # An outlier gets flagged.
-#' identify_outliers_global (c (1:10, 100))
+#' identify_vector_outliers_global (c (1:10, 100))
 #'
 #' # No outlier gets flagged with short tails.
-#' identify_outliers_global (1:10)
+#' identify_vector_outliers_global (1:10)
 #'
 #' @seealso [identify_vector_outliers_window()]
 #' @export
@@ -116,7 +116,7 @@ identify_vector_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1)
 
 #' Compute outlier flags using sliding window.
 #'
-#' Same as [identify_outliers_global()] except the quantile computation is performed
+#' Same as [identify_vector_outliers_global()] except the quantile computation is performed
 #' in a sliding window centered on each sample. Currently the computation is not
 #' really efficient and runs in `O (n*w*log (w))` for window size `w`.
 #'
@@ -129,7 +129,7 @@ identify_vector_outliers_global <- function (.data, .limit = 0.05, .slack = 0.1)
 #' @examples
 #' # A sample of 100 is considered an outlier when near
 #' # different values but not when near similar values.
-#' identify_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
+#' identify_vector_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
 #'
 #' @seealso [identify_vector_outliers_global()]
 #' @export
@@ -137,7 +137,7 @@ identify_vector_outliers_window <- function (.data, .window = 333, .limit = 0.05
     assert_vector (.data, strict = TRUE)
 
     # For less data than window size use global filter.
-    if (length (.data) < .window) return (identify_outliers_global (.data, .limit, .slack))
+    if (length (.data) <= .window) return (identify_vector_outliers_global (.data, .limit, .slack))
 
     # Compute window limits.
     # This is terribly inefficient.
@@ -203,6 +203,11 @@ remove_outliers_window <- function (.data, .column, ...) {
 #'
 #' The computation assumes that an outlier impacts a single repetition,
 #' the outlier interval is therefore the interval of that repetition.
+#'
+#' @param .flags Outlier flags.
+#' @param .index Data index.
+#' @param .total Data total.
+#' @return Tibble with outlier list.
 list_outliers_group_helper <- function (.flags, .index, .total) {
     tibble (
         total_before = c (0, head (.total, -1)) [.flags],

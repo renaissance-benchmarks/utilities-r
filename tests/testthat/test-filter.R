@@ -6,6 +6,8 @@ test_that ('global outlier identification works', {
 test_that ('window outlier identification works', {
     expect_equal (identify_vector_outliers_window (c (100, 15:25, 95:105, 100), .window = 12), c (TRUE, rep_len (FALSE, 23)))
     expect_equal (identify_vector_outliers_window (c (100, 15:25, 95:105, 100), .window = 13), rep_len (FALSE, 24))
+    expect_equal (identify_vector_outliers_window (c (100, 15:25, 95:105, 100), .window = 24), rep_len (FALSE, 24))
+    expect_equal (identify_vector_outliers_window (c (100, 15:25, 95:105, 100), .window = 25), rep_len (FALSE, 24))
 })
 
 test_that ('global outlier removal works', {

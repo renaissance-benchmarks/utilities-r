@@ -8,6 +8,10 @@ expect_renaissance(.data, info = NULL, label = vname(x))
 }
 \arguments{
 \item{.data}{Measurement results to test.}
+
+\item{info}{Internal.}
+
+\item{label}{Internal.}
 }
 \value{
 An expectation.

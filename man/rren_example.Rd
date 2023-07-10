@@ -7,10 +7,10 @@
 rren_example(file_name = "")
 }
 \arguments{
-\item{file_name}{example file name}
+\item{file_name}{Example file name.}
 }
 \value{
-example file full path
+Example file full path.
 }
 \description{
 Return full path to an example file.

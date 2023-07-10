@@ -13,7 +13,7 @@ list_dimensions <- function (.data) {
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
-        summarize (index_last = max (index), total_last = max (total), .groups = 'drop')
+        summarize (index_last = max (.data $ index), total_last = max (.data $ total), .groups = 'drop')
 }
 
 
@@ -32,27 +32,27 @@ list_dimensions <- function (.data) {
 list_regular_artifacts_by_position <- function (.artifacts, .dimensions, .min_share = 2/3, .min_runs = 11) {
 
     counts_artifacts <- .artifacts |>
-        group_by (vm, benchmark, index) |>
+        group_by (.data $ vm, .data $ benchmark, .data $ index) |>
         summarize (artifacts = n (), .groups = 'drop') |>
         mutate (runs_delta = 0L)
 
     deltas_runs_first <- .dimensions |>
         mutate (index = 1L, runs_delta = +1L) |>
-        select (-run, -index_last, -total_last)
+        select (!c ('run', 'index_last', 'total_last'))
     deltas_runs_last <- .dimensions |>
-        mutate (index = index_last + 1L, runs_delta = -1L) |>
-        select (-run, -index_last, -total_last)
+        mutate (index = .data $ index_last + 1L, runs_delta = -1L) |>
+        select (!c ('run', 'index_last', 'total_last'))
 
     timeline <- bind_rows (counts_artifacts, deltas_runs_first, deltas_runs_last) |>
-        group_by (vm, benchmark) |>
-        arrange (index, .by_group = TRUE) |>
-        mutate (runs = cumsum (runs_delta)) |>
-        select (-runs_delta) |>
+        group_by (.data $ vm, .data $ benchmark) |>
+        arrange (.data $ index, .by_group = TRUE) |>
+        mutate (runs = cumsum (.data $ runs_delta)) |>
+        select (!c ('runs_delta')) |>
         ungroup ()
 
     result <- timeline |>
-        mutate (share = artifacts / runs) |>
-        filter (share >= .min_share, runs >= .min_runs)
+        mutate (share = .data $ artifacts / .data $ runs) |>
+        filter (.data $ share >= .min_share, .data $ runs >= .min_runs)
 
     return (result)
 }
@@ -73,41 +73,41 @@ list_regular_artifacts_by_position <- function (.artifacts, .dimensions, .min_sh
 list_regular_artifacts_by_interval <- function (.artifacts, .dimensions, .min_share = 2/3, .min_runs = 11) {
 
     deltas_artifacts_before <- .artifacts |>
-        mutate (total = total_before, runs_delta = 0L, artifacts_delta = +1L) |>
-        select (-run, -total_before, -total_after, -index)
+        mutate (total = .data $ total_before, runs_delta = 0L, artifacts_delta = +1L) |>
+        select (!c ('run', 'total_before', 'total_after', 'index'))
     deltas_artifacts_after <- .artifacts |>
-        mutate (total = total_after, runs_delta = 0L, artifacts_delta = -1L) |>
-        select (-run, -total_before, -total_after, -index)
+        mutate (total = .data $ total_after, runs_delta = 0L, artifacts_delta = -1L) |>
+        select (!c ('run', 'total_before', 'total_after', 'index'))
 
     deltas_runs_first <- .dimensions |>
         mutate (total = 0, runs_delta = +1L, artifacts_delta = 0L) |>
-        select (-run, -index_last, -total_last)
+        select (!c ('run', 'index_last', 'total_last'))
     deltas_runs_last <- .dimensions |>
-        mutate (total = total_last, runs_delta = -1L, artifacts_delta = 0L) |>
-        select (-run, -index_last, -total_last)
+        mutate (total = .data $ total_last, runs_delta = -1L, artifacts_delta = 0L) |>
+        select (!c ('run', 'index_last', 'total_last'))
 
     timeline <- bind_rows (deltas_artifacts_before, deltas_artifacts_after, deltas_runs_first, deltas_runs_last) |>
-        group_by (vm, benchmark) |>
-        arrange (total, .by_group = TRUE) |>
-        mutate (runs = cumsum (runs_delta), artifacts = cumsum (artifacts_delta)) |>
-        select (-runs_delta, -artifacts_delta) |>
+        group_by (.data $ vm, .data $ benchmark) |>
+        arrange (.data $ total, .by_group = TRUE) |>
+        mutate (runs = cumsum (.data $ runs_delta), artifacts = cumsum (.data $ artifacts_delta)) |>
+        select (!c ('runs_delta', 'artifacts_delta')) |>
         ungroup ()
 
     result_interim <- timeline |>
-        mutate (share = artifacts / runs) |>
-        group_by (vm, benchmark) |>
-        mutate (current = (share >= .min_share) & (runs >= .min_runs), previous = c (FALSE, head (current, -1)))
+        mutate (share = .data $ artifacts / .data $ runs) |>
+        group_by (.data $ vm, .data $ benchmark) |>
+        mutate (current = (.data $ share >= .min_share) & (.data $ runs >= .min_runs), previous = c (FALSE, utils::head (.data $ current, -1)))
 
     result_before <- result_interim |>
-        filter (current & !previous) |>
-        group_by (total, .add = TRUE) |>
+        filter (.data $ current & !.data $ previous) |>
+        group_by (.data $ total, .add = TRUE) |>
         summarize (.groups = 'drop') |>
-        rename (total_before = total)
+        rename (total_before = .data $ total)
     result_after <- result_interim |>
-        filter (previous & !current) |>
-        group_by (total, .add = TRUE) |>
+        filter (.data $ previous & !.data $ current) |>
+        group_by (.data $ total, .add = TRUE) |>
         summarize (.groups = 'drop') |>
-        rename (total_after = total)
+        rename (total_after = .data $ total)
 
     result <- inner_join (result_before, result_after, by = c ('vm', 'benchmark'))
 

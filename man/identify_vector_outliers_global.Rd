@@ -24,12 +24,12 @@ the \code{limit} and \code{1 - limit} quantiles and \code{range = hi - lo}.
 }
 \examples{
 # An outlier gets flagged.
-identify_outliers_global (c (1:10, 100))
+identify_vector_outliers_global (c (1:10, 100))
 
 # No outlier gets flagged with short tails.
-identify_outliers_global (1:10)
+identify_vector_outliers_global (1:10)
 
 }
 \seealso{
-\code{\link[=identify_outliers_window]{identify_outliers_window()}}
+\code{\link[=identify_vector_outliers_window]{identify_vector_outliers_window()}}
 }

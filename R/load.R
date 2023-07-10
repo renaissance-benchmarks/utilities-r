@@ -76,7 +76,7 @@ extract_data_versions_1_2 <- function (data_json, benchmark) {
         add_time_from_nanos () |>
         add_cumulative_time_from_time_unix () |>
         # Preserve optional columns not transformed into canonical form.
-        select (!c (nanos, unixts.before, unixts.after)) |>
+        select (!c ('nanos', 'unixts.before', 'unixts.after')) |>
         normalize_column_names ()
 }
 
@@ -92,7 +92,7 @@ extract_data_version_5 <- function (data_json, benchmark) {
         add_time_from_duration () |>
         add_cumulative_time_from_uptime () |>
         # Preserve optional columns not transformed into canonical form.
-        select (!c (duration_ns, uptime_ns)) |>
+        select (!c ('duration_ns', 'uptime_ns')) |>
         normalize_column_names ()
 }
 
@@ -250,6 +250,8 @@ check_renaissance <- function (.data) {
 #' Check whether data resembles typical measurement results.
 #'
 #' @param .data Measurement results to test.
+#' @param .var.name Internal.
+#' @param add Internal.
 #' @return Invisible .data or an exception.
 #'
 #' @seealso [check_renaissance()]
@@ -260,6 +262,8 @@ assert_renaissance <- makeAssertionFunction (check_renaissance)
 #' Check whether data resembles typical measurement results.
 #'
 #' @param .data Measurement results to test.
+#' @param info Internal.
+#' @param label Internal.
 #' @return An expectation.
 #'
 #' @seealso [check_renaissance()]

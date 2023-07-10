@@ -24,16 +24,16 @@ identify_vector_outliers_window(
 Boolean vector of outlier flags.
 }
 \description{
-Same as \code{\link[=identify_outliers_global]{identify_outliers_global()}} except the quantile computation is performed
+Same as \code{\link[=identify_vector_outliers_global]{identify_vector_outliers_global()}} except the quantile computation is performed
 in a sliding window centered on each sample. Currently the computation is not
 really efficient and runs in \code{O (n*w*log (w))} for window size \code{w}.
 }
 \examples{
 # A sample of 100 is considered an outlier when near
 # different values but not when near similar values.
-identify_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
+identify_vector_outliers_window (c (100, 15:25, 95:105, 100), .window = 10)
 
 }
 \seealso{
-\code{\link[=identify_outliers_global]{identify_outliers_global()}}
+\code{\link[=identify_vector_outliers_global]{identify_vector_outliers_global()}}
 }

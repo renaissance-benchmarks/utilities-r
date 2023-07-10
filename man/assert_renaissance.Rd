@@ -8,6 +8,10 @@ assert_renaissance(.data, .var.name = checkmate::vname(.data), add = NULL)
 }
 \arguments{
 \item{.data}{Measurement results to test.}
+
+\item{.var.name}{Internal.}
+
+\item{add}{Internal.}
 }
 \value{
 Invisible .data or an exception.

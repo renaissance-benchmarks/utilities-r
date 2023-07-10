@@ -11,11 +11,11 @@ remove_outliers_window(.data, .column, ...)
 
 \item{.column}{Column to identify outliers in.}
 
-\item{...}{Parameters to \code{\link[=identify_outliers_window]{identify_outliers_window()}}.}
+\item{...}{Parameters to \code{\link[=identify_vector_outliers_window]{identify_vector_outliers_window()}}.}
 }
 \value{
 Tibble with rows filtered.
 }
 \description{
-Uses \code{\link[=identify_outliers_window]{identify_outliers_window()}} to identify outliers in given column. Then, removes the outlier rows.
+Uses \code{\link[=identify_vector_outliers_window]{identify_vector_outliers_window()}} to identify outliers in given column. Then, removes the outlier rows.
 }

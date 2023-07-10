@@ -1,10 +1,10 @@
 #' @keywords internal
 #' @import glue
 #' @import dplyr
+#' @import utils
 #' @import logger
 #' @import tibble
 #' @import stringr
-#' @import magrittr
 #' @import checkmate
 #' @importFrom rlang .data .env
 "_PACKAGE"
