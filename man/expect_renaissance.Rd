@@ -4,7 +4,7 @@
 \alias{expect_renaissance}
 \title{Check whether data resembles typical measurement results.}
 \usage{
-expect_renaissance(.data, info = NULL, label = vname(.data))
+expect_renaissance(.data, info = NULL, label = vname(.data), ...)
 }
 \arguments{
 \item{.data}{Measurement results to test.}
@@ -12,6 +12,8 @@ expect_renaissance(.data, info = NULL, label = vname(.data))
 \item{info}{Internal.}
 
 \item{label}{Internal.}
+
+\item{...}{Parameters to \code{\link[=check_renaissance]{check_renaissance()}}.}
 }
 \value{
 An expectation.

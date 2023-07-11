@@ -208,40 +208,45 @@ check_columns <- function (.data, .names, .test, .type) {
 
 #' Check whether data resembles typical measurement results.
 #'
-#' @details
-#'
-#' Performs basic sanity checking on data,
-#' including presence of essential columns.
-#'
 #' @param .data Measurement results to test.
+#' @param .check_index Check presence of index.
+#' @param .check_total Check presence of total.
+#' @param .check_metadata Check presence of descriptive metadata columns.
+#'
 #' @return Error message or TRUE.
 #'
 #' @export
-check_renaissance <- function (.data) {
+check_renaissance <- function (.data, .check_index = TRUE, .check_total = TRUE, .check_metadata = TRUE) {
 
     # The basic structure is a tibble.
     res <- check_tibble (.data)
     if (!isTRUE (res)) return (res)
 
-    # Index column is an integer.
-    res <- check_columns (.data, c ('index'), test_integer, 'an integer')
+    # Combination columns are factorial.
+    res <- check_columns (.data, c ('vm', 'run', 'benchmark'), test_factor, 'a factor')
     if (!isTRUE (res)) return (res)
 
-    # Index column is non negative.
-    res <- check_columns (.data, c ('index'), function (x) all (x >= 0), 'non negative')
-    if (!isTRUE (res)) return (res)
+    # Metadata columns are factorial.
+    if (.check_metadata) {
+        res <- check_columns (.data, c ('vm_name', 'vm_version', 'vm_configuration'), test_factor, 'a factor')
+        if (!isTRUE (res)) return (res)
+    }
 
-    # Basic timing columns are numeric.
-    res <- check_columns (.data, c ('time', 'total'), test_numeric, 'a number')
-    if (!isTRUE (res)) return (res)
+    if (.check_index) {
+        # Index column is non negative integer.
+        res <- check_columns (.data, c ('index'), test_integer, 'an integer')
+        if (!isTRUE (res)) return (res)
+        res <- check_columns (.data, c ('index'), function (x) all (x >= 0), 'non negative')
+        if (!isTRUE (res)) return (res)
+    }
 
-    # Basic timing columns are non negative.
-    res <- check_columns (.data, c ('time', 'total'), function (x) all (x >= 0), 'non negative')
-    if (!isTRUE (res)) return (res)
-
-    # Basic metadata columns are factorial.
-    res <- check_columns (.data, c ('vm', 'vm_name', 'vm_version', 'vm_configuration', 'run', 'benchmark'), test_factor, 'a factor')
-    if (!isTRUE (res)) return (res)
+    if (.check_total) {
+        # Total column is non negative number.
+        res <- check_columns (.data, c ('total'), test_numeric, 'a number')
+        if (!isTRUE (res)) return (res)
+        res <- check_columns (.data, c ('total'), function (x) all (x >= 0), 'non negative')
+        if (!isTRUE (res)) return (res)
+    }
 
     return (TRUE)
 }
@@ -252,13 +257,14 @@ check_renaissance <- function (.data) {
 #' @param .data Measurement results to test.
 #' @param .var.name Internal.
 #' @param add Internal.
+#' @param ... Parameters to [check_renaissance()].
 #' @return Invisible .data or an exception.
 #'
-#' @seealso [check_renaissance()]
+#' @seealso [check_renaissance]
 #' @export
-assert_renaissance <- function (.data, .var.name = vname (.data), add = NULL) {
+assert_renaissance <- function (.data, .var.name = vname (.data), add = NULL, ...) {
     # Does not use `makeAssertionFunction` because check complains about arguments.
-    makeAssertion (.data, check_renaissance (.data), .var.name, add)
+    makeAssertion (.data, check_renaissance (.data, ...), .var.name, add)
 }
 
 
@@ -267,11 +273,12 @@ assert_renaissance <- function (.data, .var.name = vname (.data), add = NULL) {
 #' @param .data Measurement results to test.
 #' @param info Internal.
 #' @param label Internal.
+#' @param ... Parameters to [check_renaissance()].
 #' @return An expectation.
 #'
 #' @seealso [check_renaissance()]
 #' @export
-expect_renaissance <- function (.data, info = NULL, label = vname (.data)) {
+expect_renaissance <- function (.data, info = NULL, label = vname (.data), ...) {
     # Does not use `makeExpectationFunction` because check complains about arguments.
-    makeExpectation (.data, check_renaissance (.data), info = info, label = label)
+    makeExpectation (.data, check_renaissance (.data, ...), info = info, label = label)
 }

@@ -9,7 +9,7 @@
 #' @return Tibble with data dimensions.
 #' @export
 list_dimensions <- function (.data) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>

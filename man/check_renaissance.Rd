@@ -4,18 +4,25 @@
 \alias{check_renaissance}
 \title{Check whether data resembles typical measurement results.}
 \usage{
-check_renaissance(.data)
+check_renaissance(
+  .data,
+  .check_index = TRUE,
+  .check_total = TRUE,
+  .check_metadata = TRUE
+)
 }
 \arguments{
 \item{.data}{Measurement results to test.}
+
+\item{.check_index}{Check presence of index.}
+
+\item{.check_total}{Check presence of total.}
+
+\item{.check_metadata}{Check presence of descriptive metadata columns.}
 }
 \value{
 Error message or TRUE.
 }
 \description{
 Check whether data resembles typical measurement results.
-}
-\details{
-Performs basic sanity checking on data,
-including presence of essential columns.
 }

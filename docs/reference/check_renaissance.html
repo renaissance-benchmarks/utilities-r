@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rren</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_renaissance</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_renaissance</span><span class="op">(</span></span>
+<span>  <span class="va">.data</span>,</span>
+<span>  .check_index <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .check_total <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .check_metadata <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -56,17 +61,24 @@
     <dl><dt>.data</dt>
 <dd><p>Measurement results to test.</p></dd>
 
+
+<dt>.check_index</dt>
+<dd><p>Check presence of index.</p></dd>
+
+
+<dt>.check_total</dt>
+<dd><p>Check presence of total.</p></dd>
+
+
+<dt>.check_metadata</dt>
+<dd><p>Check presence of descriptive metadata columns.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
 <p>Error message or TRUE.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Performs basic sanity checking on data,
-including presence of essential columns.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

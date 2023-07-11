@@ -4,7 +4,7 @@
 \alias{assert_renaissance}
 \title{Check whether data resembles typical measurement results.}
 \usage{
-assert_renaissance(.data, .var.name = vname(.data), add = NULL)
+assert_renaissance(.data, .var.name = vname(.data), add = NULL, ...)
 }
 \arguments{
 \item{.data}{Measurement results to test.}
@@ -12,6 +12,8 @@ assert_renaissance(.data, .var.name = vname(.data), add = NULL)
 \item{.var.name}{Internal.}
 
 \item{add}{Internal.}
+
+\item{...}{Parameters to \code{\link[=check_renaissance]{check_renaissance()}}.}
 }
 \value{
 Invisible .data or an exception.
@@ -20,5 +22,5 @@ Invisible .data or an exception.
 Check whether data resembles typical measurement results.
 }
 \seealso{
-\code{\link[=check_renaissance]{check_renaissance()}}
+\link{check_renaissance}
 }
