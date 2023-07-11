@@ -35,3 +35,10 @@ test_that ('loading multiple JSON files works', {
     expect_equal (test_data |> filter (str_ends (run, 'results-small-version-2\\.json'), benchmark == 'page-rank', index == 1) |> pull (time), 21.724393426)
     expect_equal (test_data |> filter (str_ends (run, 'results-small-version-5\\.json'), benchmark == 'page-rank', index == 1) |> pull (time), 5.411979039)
 })
+
+test_that ('generating artificial data files works', {
+    test_data <- rren_artificial (seq (1000))
+    expect_renaissance (test_data)
+    expect_tibble (test_data, nrow = 1000)
+    expect_equal (test_data $ time, seq (1000))
+})

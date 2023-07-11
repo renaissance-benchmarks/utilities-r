@@ -14,7 +14,7 @@
 #' @return Filtered measurement results.
 #' @export
 preserve_last_n <- function (.data, .n, .max_share = 0.5) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_total = FALSE, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
@@ -41,7 +41,7 @@ preserve_last_n <- function (.data, .n, .max_share = 0.5) {
 #' @return Filtered measurement results.
 #' @export
 preserve_last_sec <- function (.data, .sec, .max_share = 0.5, .equal_count_per_run = FALSE) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_metadata = FALSE)
 
     if (.equal_count_per_run) {
 
@@ -166,7 +166,7 @@ identify_vector_outliers_window <- function (.data, .window = 333, .limit = 0.05
 #' @return Tibble with rows filtered.
 #' @export
 remove_outliers_global <- function (.data, .column, ...) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_index = FALSE, .check_total = FALSE, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
@@ -185,7 +185,7 @@ remove_outliers_global <- function (.data, .column, ...) {
 #' @return Tibble with rows filtered.
 #' @export
 remove_outliers_window <- function (.data, .column, ...) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_index = FALSE, .check_total = FALSE, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
@@ -227,7 +227,7 @@ list_outliers_group_helper <- function (.flags, .index, .total) {
 #' @return Tibble with outlier list.
 #' @export
 list_outliers_global <- function (.data, .column, ...) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
@@ -245,7 +245,7 @@ list_outliers_global <- function (.data, .column, ...) {
 #' @return Tibble with outlier list.
 #' @export
 list_outliers_window <- function (.data, .column, ...) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>

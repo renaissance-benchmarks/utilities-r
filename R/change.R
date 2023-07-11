@@ -80,7 +80,7 @@ list_segment_boundaries_group_helper <- function (.positions, .index, .total) {
 #' @return Tibble with segment boundary list.
 #' @export
 list_segment_boundaries <- function (.data, .column, ...) {
-    assert_renaissance (.data)
+    assert_renaissance (.data, .check_metadata = FALSE)
 
     .data |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
