@@ -13,19 +13,55 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/identify_outliers_global.html</loc>
+    <loc>/reference/assert_renaissance.html</loc>
   </url>
   <url>
-    <loc>/reference/identify_outliers_window.html</loc>
+    <loc>/reference/check_renaissance.html</loc>
+  </url>
+  <url>
+    <loc>/reference/expect_renaissance.html</loc>
+  </url>
+  <url>
+    <loc>/reference/identify_vector_outliers_global.html</loc>
+  </url>
+  <url>
+    <loc>/reference/identify_vector_outliers_window.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_dimensions.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_outliers_global.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_outliers_group_helper.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_outliers_window.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_regular_artifacts_by_interval.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_regular_artifacts_by_position.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_segment_boundaries.html</loc>
+  </url>
+  <url>
+    <loc>/reference/list_segment_boundaries_group_helper.html</loc>
   </url>
   <url>
     <loc>/reference/load_file_json.html</loc>
   </url>
   <url>
     <loc>/reference/load_path_json.html</loc>
+  </url>
+  <url>
+    <loc>/reference/locate_vector_segments.html</loc>
   </url>
   <url>
     <loc>/reference/preserve_last_n.html</loc>
@@ -41,6 +77,9 @@
   </url>
   <url>
     <loc>/reference/rren-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rren_artificial.html</loc>
   </url>
   <url>
     <loc>/reference/rren_example.html</loc>

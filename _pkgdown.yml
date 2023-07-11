@@ -8,18 +8,20 @@ reference:
     - matches ('_renaissance$')
 - title: Filtering results
   contents:
-    - matches ('_last_(n|sec)$')
-    - matches ('_outliers_(global|window)$')
+    - matches ('^(preserve)_last_(n|sec)$')
+    - matches ('^(locate|identify)_vector_outliers')
+    - matches ('^(remove|list)_outliers_(global|window)$')
 - title: Analyzing results
   contents:
-    - matches ('_dimensions$')
-    - matches ('_segments$')
-    - matches ('_segment_boundaries$')
-    - matches ('_regular_artifacts_by_(position|interval)$')
+    - matches ('^(locate|identify)_vector_segments$')
+    - matches ('^(list)_dimensions$')
+    - matches ('^(list)_segment_boundaries$')
+    - matches ('^(list)_regular_artifacts_by_(position|interval)$')
 - title: Miscellaneous functions
   contents:
     - rren_example
     - rren_artificial
-- title: Internal functions
+
+- title: internal
   contents:
     - matches ('_group_helper$')
