@@ -111,7 +111,7 @@ list_regular_artifacts_by_interval <- function (.artifacts, .dimensions, .min_sh
         mutate (interval = row_number ()) |>
         rename (total_after = 'total')
 
-    result <- full_join (result_before, result_after, by = c ('vm', 'benchmark', 'interval')) |> select (!c ('interval'))
+    result <- full_join (result_before, result_after, by = c ('vm', 'benchmark', 'interval'), relationship = 'one-to-one') |> select (!c ('interval'))
 
     return (result)
 }
