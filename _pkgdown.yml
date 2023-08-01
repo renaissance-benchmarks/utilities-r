@@ -24,4 +24,4 @@ reference:
 
 - title: internal
   contents:
-    - matches ('_group_helper$')
+    - matches ('_helper$')

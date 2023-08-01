@@ -6,7 +6,7 @@
 #' @import tibble
 #' @import stringr
 #' @import checkmate
-#' @importFrom rlang .data .env
+#' @importFrom rlang .data .env :=
 "_PACKAGE"
 
 ## usethis namespace: start

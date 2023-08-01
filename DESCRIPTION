@@ -1,6 +1,6 @@
 Package: rren
 Title: Renaissance Benchmark Data Processing Package
-Version: 0.0.4
+Version: 0.0.5
 Authors@R:
     person ("Petr", "Tuma", email = "petr.tuma@d3s.mff.cuni.cz", role = c ("aut", "cre"), comment = c (ORCID = "0000-0002-7035-2322"))
 Description: A utility package for processing the data produced by the Renaissance benchmark suite (https://renaissance.dev).
@@ -16,12 +16,13 @@ Config/testthat/edition: 3
 Imports: 
     changepoint (>= 2.2.4),
     checkmate (>= 2.2.0),
-    digest (>= 0.6.31),
+    digest (>= 0.6.33),
     dplyr (>= 1.1.2),
-    fs (>= 1.6.2),
+    fs (>= 1.6.3),
     glue (>= 1.6.2),
-    jsonlite (>= 1.8.4),
+    jsonlite (>= 1.8.7),
     logger (>= 0.2.2),
+    resample (>= 0.6),
     rlang (>= 1.1.1),
     stringr (>= 1.5.0),
     tibble (>= 3.2.1),
