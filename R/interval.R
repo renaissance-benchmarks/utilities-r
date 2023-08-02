@@ -12,7 +12,6 @@ compute_flat_percentile_cis_group_helper <- function (.data, .statistic, .confid
 
     sampler <- function (n, R) {
         assert_true (n == length (.data))
-        assert_true (R == .R)
 
         # Applies recommended correction for low variance estimate.
         resample::samp.bootstrap (n, R, n - 1)
