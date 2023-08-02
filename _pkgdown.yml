@@ -8,11 +8,13 @@ reference:
     - matches ('_renaissance$')
 - title: Filtering results
   contents:
-    - matches ('^(preserve)_last_(n|sec)$')
     - matches ('^(locate|identify)_vector_outliers')
+    - matches ('^(preserve)_last_(n|sec)$')
     - matches ('^(remove|list)_outliers_(global|window)$')
 - title: Analyzing results
   contents:
+    - matches ('^(compute)_trends')
+    - matches ('^(compute)_flat_percentile_cis')
     - matches ('^(locate|identify)_vector_segments$')
     - matches ('^(list)_dimensions$')
     - matches ('^(list)_segment_boundaries$')
