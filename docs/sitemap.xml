@@ -19,6 +19,15 @@
     <loc>/reference/check_renaissance.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_flat_percentile_cis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_flat_percentile_cis_group_helper.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_trends.html</loc>
+  </url>
+  <url>
     <loc>/reference/expect_renaissance.html</loc>
   </url>
   <url>
