@@ -4,10 +4,10 @@
 \alias{remove_outliers_global}
 \title{Remove outliers.}
 \usage{
-remove_outliers_global(.data, .column, ...)
+remove_outliers_global(.input, .column, ...)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 
 \item{.column}{Column to identify outliers in.}
 

@@ -4,10 +4,10 @@
 \alias{list_dimensions}
 \title{Get dimensions.}
 \usage{
-list_dimensions(.data)
+list_dimensions(.input)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 }
 \value{
 Tibble with data dimensions.

@@ -1,6 +1,6 @@
 Package: rren
 Title: Renaissance Benchmark Data Processing Package
-Version: 0.0.5
+Version: 0.0.6
 Authors@R:
     person ("Petr", "Tuma", email = "petr.tuma@d3s.mff.cuni.cz", role = c ("aut", "cre"), comment = c (ORCID = "0000-0002-7035-2322"))
 Description: A utility package for processing the data produced by the Renaissance benchmark suite (https://renaissance.dev).

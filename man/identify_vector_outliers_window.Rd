@@ -5,14 +5,14 @@
 \title{Compute outlier flags using sliding window.}
 \usage{
 identify_vector_outliers_window(
-  .data,
+  .input,
   .window = 333,
   .limit = 0.05,
   .slack = 0.1
 )
 }
 \arguments{
-\item{.data}{Sample vector.}
+\item{.input}{Sample vector.}
 
 \item{.window}{Window size in samples.}
 

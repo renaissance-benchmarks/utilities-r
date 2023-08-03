@@ -4,10 +4,10 @@
 \alias{identify_vector_outliers_global}
 \title{Compute outlier flags.}
 \usage{
-identify_vector_outliers_global(.data, .limit = 0.05, .slack = 0.1)
+identify_vector_outliers_global(.input, .limit = 0.05, .slack = 0.1)
 }
 \arguments{
-\item{.data}{Sample vector.}
+\item{.input}{Sample vector.}
 
 \item{.limit}{Quantile that separates inliers from outliers.}
 

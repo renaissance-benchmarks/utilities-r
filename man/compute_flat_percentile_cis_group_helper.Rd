@@ -4,10 +4,10 @@
 \alias{compute_flat_percentile_cis_group_helper}
 \title{Group helper for flat percentile bootstrap confidence interval.}
 \usage{
-compute_flat_percentile_cis_group_helper(.data, .statistic, .confidence, .R)
+compute_flat_percentile_cis_group_helper(.input, .statistic, .confidence, .R)
 }
 \arguments{
-\item{.data}{Data to compute confidence interval for.}
+\item{.input}{Data to compute confidence interval for.}
 
 \item{.statistic}{Statistic to compute confidence interval for.}
 

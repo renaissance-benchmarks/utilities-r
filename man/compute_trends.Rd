@@ -4,10 +4,10 @@
 \alias{compute_trends}
 \title{Compute trends.}
 \usage{
-compute_trends(.data, .column)
+compute_trends(.input, .column)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 
 \item{.column}{Column to compute trend for.}
 }

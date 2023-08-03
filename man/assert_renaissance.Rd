@@ -4,10 +4,10 @@
 \alias{assert_renaissance}
 \title{Check whether data resembles typical measurement results.}
 \usage{
-assert_renaissance(.data, .var.name = vname(.data), add = NULL, ...)
+assert_renaissance(.input, .var.name = vname(.data), add = NULL, ...)
 }
 \arguments{
-\item{.data}{Measurement results to test.}
+\item{.input}{Measurement results to test.}
 
 \item{.var.name}{Internal.}
 

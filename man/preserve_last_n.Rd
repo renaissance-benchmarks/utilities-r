@@ -4,10 +4,10 @@
 \alias{preserve_last_n}
 \title{Preserve last samples in each run by count.}
 \usage{
-preserve_last_n(.data, .n, .max_share = 0.5)
+preserve_last_n(.input, .n, .max_share = 0.5)
 }
 \arguments{
-\item{.data}{Measurement results to filter.}
+\item{.input}{Measurement results to filter.}
 
 \item{.n}{How many samples taken from end to preserve.}
 

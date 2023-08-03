@@ -4,10 +4,10 @@
 \alias{remove_outliers_window}
 \title{Remove outliers using sliding window.}
 \usage{
-remove_outliers_window(.data, .column, ...)
+remove_outliers_window(.input, .column, ...)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 
 \item{.column}{Column to identify outliers in.}
 
