@@ -5,7 +5,7 @@
 \title{Compute flat percentile bootstrap confidence interval.}
 \usage{
 compute_flat_percentile_cis(
-  .data,
+  .input,
   .column,
   .statistic = mean,
   .confidence = 0.99,
@@ -13,7 +13,7 @@ compute_flat_percentile_cis(
 )
 }
 \arguments{
-\item{.data}{Data summarized across runs.}
+\item{.input}{Data summarized across runs.}
 
 \item{.column}{Column to compute confidence interval for.}
 

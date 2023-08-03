@@ -4,10 +4,10 @@
 \alias{list_outliers_window}
 \title{List outliers using sliding window.}
 \usage{
-list_outliers_window(.data, .column, ...)
+list_outliers_window(.input, .column, ...)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 
 \item{.column}{Column to identify outliers in.}
 

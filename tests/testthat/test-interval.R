@@ -4,4 +4,5 @@ test_that ('confidence interval computation works on artificial data', {
     expect_tibble (test_cis, nrow = 4)
     expect_double (test_cis $ time_lo, 0, 1)
     expect_double (test_cis $ time_hi, 0, 1)
+    expect_double (test_cis $ time_mid, 0.499, 0.501)
 })

@@ -4,10 +4,10 @@
 \alias{list_segment_boundaries}
 \title{List segment boundaries.}
 \usage{
-list_segment_boundaries(.data, .column, ...)
+list_segment_boundaries(.input, .column, ...)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 
 \item{.column}{Column to identify segments in.}
 

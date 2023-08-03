@@ -8,22 +8,22 @@
 #'
 #' Relies on the PELT algorithm implementation in the [changepoint::cpt.meanvar()] function.
 #'
-#' @param .data Measurement results to analyze.
+#' @param .input Measurement results to analyze.
 #' @param .penalty A numerical penalty or `barrett` for penalty computation from [Barrett et al.](https://doi.org/10.1145/3133876).
 #' @return Vector of segment starting points.
 #' @export
-locate_vector_segments <- function (.data, .penalty) {
-    assert_vector (.data, strict = TRUE)
+locate_vector_segments <- function (.input, .penalty) {
+    assert_vector (.input, strict = TRUE)
 
     # Make sure samples are not integer because the library fails silently on integer inputs.
-    .data <- as.numeric (.data)
+    .input <- as.numeric (.input)
 
     # Convert penalty settings to what the library accepts.
     if (is.character (.penalty)) {
         .penalty <- match.arg (.penalty, c ('barrett'))
         if (.penalty == 'barrett') {
             pen_type <- 'Manual'
-            pen_value <- 15 * log (length (.data))
+            pen_value <- 15 * log (length (.input))
         }
     }
     if (is.numeric (.penalty)) {
@@ -32,7 +32,7 @@ locate_vector_segments <- function (.data, .penalty) {
     }
 
     positions <- tryCatch (
-        changepoint::cpts (changepoint::cpt.meanvar (.data, method = 'PELT', penalty = pen_type, pen.value = pen_value)),
+        changepoint::cpts (changepoint::cpt.meanvar (.input, method = 'PELT', penalty = pen_type, pen.value = pen_value)),
         error = function (e) return (NULL))
 
     # The library returns indices of the last sample before change.
@@ -74,15 +74,15 @@ list_segment_boundaries_group_helper <- function (.positions, .index, .total) {
 #'
 #' Uses [locate_vector_segments()] to identify segments in given column. Then, returns the list of segment boundary positions and intervals.
 #'
-#' @param .data Data.
+#' @param .input Data.
 #' @param .column Column to identify segments in.
 #' @param ... Parameters to [locate_vector_segments()].
 #' @return Tibble with segment boundary list.
 #' @export
-list_segment_boundaries <- function (.data, .column, ...) {
-    assert_renaissance (.data, .check_metadata = FALSE)
+list_segment_boundaries <- function (.input, .column, ...) {
+    assert_renaissance (.input, .check_metadata = FALSE)
 
-    .data |>
+    .input |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
         reframe (list_segment_boundaries_group_helper (locate_vector_segments ({{ .column }}, ...), .data $ index, .data $ total))
 }

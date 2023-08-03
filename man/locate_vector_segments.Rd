@@ -4,10 +4,10 @@
 \alias{locate_vector_segments}
 \title{Locate change point segments in samples.}
 \usage{
-locate_vector_segments(.data, .penalty)
+locate_vector_segments(.input, .penalty)
 }
 \arguments{
-\item{.data}{Measurement results to analyze.}
+\item{.input}{Measurement results to analyze.}
 
 \item{.penalty}{A numerical penalty or \code{barrett} for penalty computation from \href{https://doi.org/10.1145/3133876}{Barrett et al.}.}
 }

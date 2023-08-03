@@ -197,10 +197,10 @@ load_path_json <- function (data_path, pattern = '\\.json(|\\.gz|\\.xz|\\.bz2)$'
 # ----------------------------------------------------------------
 # Sanity
 
-check_columns <- function (.data, .names, .test, .type) {
+check_columns <- function (.input, .names, .test, .type) {
     for (name in .names) {
-        if (!name %in% colnames (.data)) return (glue::glue ('Column {name} must be present'))
-        if (!.test (.data [[name]])) return (glue::glue ('Column {name} must be {.type}'))
+        if (!name %in% colnames (.input)) return (glue::glue ('Column {name} must be present'))
+        if (!.test (.input [[name]])) return (glue::glue ('Column {name} must be {.type}'))
     }
     return (TRUE)
 }
@@ -208,7 +208,7 @@ check_columns <- function (.data, .names, .test, .type) {
 
 #' Check whether data resembles typical measurement results.
 #'
-#' @param .data Measurement results to test.
+#' @param .input Measurement results to test.
 #' @param .check_index Check presence of index.
 #' @param .check_total Check presence of total.
 #' @param .check_metadata Check presence of descriptive metadata columns.
@@ -216,35 +216,35 @@ check_columns <- function (.data, .names, .test, .type) {
 #' @return Error message or TRUE.
 #'
 #' @export
-check_renaissance <- function (.data, .check_index = TRUE, .check_total = TRUE, .check_metadata = TRUE) {
+check_renaissance <- function (.input, .check_index = TRUE, .check_total = TRUE, .check_metadata = TRUE) {
 
     # The basic structure is a tibble.
-    res <- check_tibble (.data)
+    res <- check_tibble (.input)
     if (!isTRUE (res)) return (res)
 
     # Combination columns are factorial.
-    res <- check_columns (.data, c ('vm', 'run', 'benchmark'), test_factor, 'a factor')
+    res <- check_columns (.input, c ('vm', 'run', 'benchmark'), test_factor, 'a factor')
     if (!isTRUE (res)) return (res)
 
     # Metadata columns are factorial.
     if (.check_metadata) {
-        res <- check_columns (.data, c ('vm_name', 'vm_version', 'vm_configuration'), test_factor, 'a factor')
+        res <- check_columns (.input, c ('vm_name', 'vm_version', 'vm_configuration'), test_factor, 'a factor')
         if (!isTRUE (res)) return (res)
     }
 
     if (.check_index) {
         # Index column is non negative integer.
-        res <- check_columns (.data, c ('index'), test_integer, 'an integer')
+        res <- check_columns (.input, c ('index'), test_integer, 'an integer')
         if (!isTRUE (res)) return (res)
-        res <- check_columns (.data, c ('index'), function (x) all (x >= 0), 'non negative')
+        res <- check_columns (.input, c ('index'), function (x) all (x >= 0), 'non negative')
         if (!isTRUE (res)) return (res)
     }
 
     if (.check_total) {
         # Total column is non negative number.
-        res <- check_columns (.data, c ('total'), test_numeric, 'a number')
+        res <- check_columns (.input, c ('total'), test_numeric, 'a number')
         if (!isTRUE (res)) return (res)
-        res <- check_columns (.data, c ('total'), function (x) all (x >= 0), 'non negative')
+        res <- check_columns (.input, c ('total'), function (x) all (x >= 0), 'non negative')
         if (!isTRUE (res)) return (res)
     }
 
@@ -254,7 +254,7 @@ check_renaissance <- function (.data, .check_index = TRUE, .check_total = TRUE, 
 
 #' Check whether data resembles typical measurement results.
 #'
-#' @param .data Measurement results to test.
+#' @param .input Measurement results to test.
 #' @param .var.name Internal.
 #' @param add Internal.
 #' @param ... Parameters to [check_renaissance()].
@@ -262,15 +262,15 @@ check_renaissance <- function (.data, .check_index = TRUE, .check_total = TRUE, 
 #'
 #' @seealso [check_renaissance]
 #' @export
-assert_renaissance <- function (.data, .var.name = vname (.data), add = NULL, ...) {
-    # Does not use `makeAssertionFunction` because check complains about arguments.
-    makeAssertion (.data, check_renaissance (.data, ...), .var.name, add)
+assert_renaissance <- function (.input, .var.name = vname (.data), add = NULL, ...) {
+    # Does not use `makeAssertionFunction` because `check` complains about arguments.
+    makeAssertion (.input, check_renaissance (.input, ...), .var.name, add)
 }
 
 
 #' Check whether data resembles typical measurement results.
 #'
-#' @param .data Measurement results to test.
+#' @param .input Measurement results to test.
 #' @param info Internal.
 #' @param label Internal.
 #' @param ... Parameters to [check_renaissance()].
@@ -278,7 +278,7 @@ assert_renaissance <- function (.data, .var.name = vname (.data), add = NULL, ..
 #'
 #' @seealso [check_renaissance()]
 #' @export
-expect_renaissance <- function (.data, info = NULL, label = vname (.data), ...) {
-    # Does not use `makeExpectationFunction` because check complains about arguments.
-    makeExpectation (.data, check_renaissance (.data, ...), info = info, label = label)
+expect_renaissance <- function (.input, info = NULL, label = vname (.data), ...) {
+    # Does not use `makeExpectationFunction` because `check` complains about arguments.
+    makeExpectation (.input, check_renaissance (.input, ...), info = info, label = label)
 }

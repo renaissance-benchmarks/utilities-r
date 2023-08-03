@@ -5,14 +5,14 @@
 \title{Check whether data resembles typical measurement results.}
 \usage{
 check_renaissance(
-  .data,
+  .input,
   .check_index = TRUE,
   .check_total = TRUE,
   .check_metadata = TRUE
 )
 }
 \arguments{
-\item{.data}{Measurement results to test.}
+\item{.input}{Measurement results to test.}
 
 \item{.check_index}{Check presence of index.}
 

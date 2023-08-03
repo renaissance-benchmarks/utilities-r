@@ -4,10 +4,10 @@
 \alias{preserve_last_sec}
 \title{Preserve last samples in each run by time.}
 \usage{
-preserve_last_sec(.data, .sec, .max_share = 0.5, .equal_count_per_run = FALSE)
+preserve_last_sec(.input, .sec, .max_share = 0.5, .equal_count_per_run = FALSE)
 }
 \arguments{
-\item{.data}{Measurement results to filter.}
+\item{.input}{Measurement results to filter.}
 
 \item{.sec}{How old samples taken from end to preserve.}
 

@@ -5,13 +5,13 @@
 #'
 #' Returns dimensions of the data, useful to compute relative frequencies in regular position identification.
 #'
-#' @param .data Data.
+#' @param .input Data.
 #' @return Tibble with data dimensions.
 #' @export
-list_dimensions <- function (.data) {
-    assert_renaissance (.data, .check_metadata = FALSE)
+list_dimensions <- function (.input) {
+    assert_renaissance (.input, .check_metadata = FALSE)
 
-    .data |>
+    .input |>
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
         summarize (index_last = max (.data $ index), total_last = max (.data $ total), .groups = 'drop')
 }

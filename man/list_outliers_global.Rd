@@ -4,10 +4,10 @@
 \alias{list_outliers_global}
 \title{List outliers.}
 \usage{
-list_outliers_global(.data, .column, ...)
+list_outliers_global(.input, .column, ...)
 }
 \arguments{
-\item{.data}{Data.}
+\item{.input}{Data.}
 
 \item{.column}{Column to identify outliers in.}
 
