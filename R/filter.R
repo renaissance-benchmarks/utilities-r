@@ -251,3 +251,43 @@ list_outliers_window <- function (.input, .column, ...) {
         group_by (.data $ vm, .data $ run, .data $ benchmark) |>
         reframe (list_outliers_group_helper (identify_vector_outliers_window ({{ .column }}, ...), .data $ index, .data $ total))
 }
+
+
+#' Flag outliers.
+#'
+#' Uses [identify_vector_outliers_global()] to identify outliers in given column. Then, flags the outlier rows.
+#'
+#' @param .input Data.
+#' @param .column Column to identify outliers in.
+#' @param .flag Column to use as flag.
+#' @param ... Parameters to [identify_vector_outliers_global()].
+#' @return Tibble with new flag column.
+#' @export
+flag_outliers_global <- function (.input, .column, .flag, ...) {
+    assert_renaissance (.input, .check_index = FALSE, .check_total = FALSE, .check_metadata = FALSE)
+
+    .input |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        mutate ('{{ .flag }}' := identify_vector_outliers_global ({{ .column }}, ...)) |>
+        ungroup ()
+}
+
+
+#' Flag outliers using sliding window.
+#'
+#' Uses [identify_vector_outliers_window()] to identify outliers in given column. Then, flags the outlier rows.
+#'
+#' @param .input Data.
+#' @param .column Column to identify outliers in.
+#' @param .flag Column to use as flag.
+#' @param ... Parameters to [identify_vector_outliers_window()].
+#' @return Tibble with new flag column.
+#' @export
+flag_outliers_window <- function (.input, .column, .flag, ...) {
+    assert_renaissance (.input, .check_index = FALSE, .check_total = FALSE, .check_metadata = FALSE)
+
+    .input |>
+        group_by (.data $ vm, .data $ run, .data $ benchmark) |>
+        mutate ('{{ .flag }}' := identify_vector_outliers_window ({{ .column }}, ...)) |>
+        ungroup ()
+}
