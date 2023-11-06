@@ -19,16 +19,28 @@
     <loc>/reference/check_renaissance.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_flat_percentile_cis.html</loc>
+    <loc>/reference/compute_flat_percentile_ci.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_flat_percentile_cis_group_helper.html</loc>
+    <loc>/reference/compute_hierarchical_percentile_ci.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_list_vectors_hierarchical_percentile_ci.html</loc>
   </url>
   <url>
     <loc>/reference/compute_trends.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_vector_flat_percentile_ci.html</loc>
+  </url>
+  <url>
     <loc>/reference/expect_renaissance.html</loc>
+  </url>
+  <url>
+    <loc>/reference/flag_outliers_global.html</loc>
+  </url>
+  <url>
+    <loc>/reference/flag_outliers_window.html</loc>
   </url>
   <url>
     <loc>/reference/identify_vector_outliers_global.html</loc>
@@ -83,6 +95,15 @@
   </url>
   <url>
     <loc>/reference/remove_outliers_window.html</loc>
+  </url>
+  <url>
+    <loc>/reference/report_summaries.html</loc>
+  </url>
+  <url>
+    <loc>/reference/report_summaries_benchmark_group_helper.html</loc>
+  </url>
+  <url>
+    <loc>/reference/report_summaries_vm_group_helper.html</loc>
   </url>
   <url>
     <loc>/reference/rren-package.html</loc>
