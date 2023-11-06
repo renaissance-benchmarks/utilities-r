@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">rren</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,8 +67,31 @@
 <p>rren packages various functions useful for processing measurements collected using the <a href="https://renaissance.dev" class="external-link">Renaissance Benchmark Suite</a>.</p>
 </div>
 <div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span> <span class="op">(</span><span class="st">'pak'</span><span class="op">)</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span> <span class="op">(</span><span class="st">'renaissance-benchmarks/utilities-r'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
+<p>A simple summary report can be generated from JSON data with <code>Rscript -e 'rren::report_summaries ()'</code> run in the data path.</p>
+<pre class="console"><code>&gt; java -jar renaissance-gpl-0.15.0.jar --json scrabble.json scrabble
+====== scrabble (functional) [default], iteration 0 started ======
+GC before operation: completed in 62.114 ms, heap usage 188.729 MB -&gt; 77.885 MB.
+...
+&gt; Rscript -e 'rren::report_summaries (warmup = 0)'
+ℹ Loading data from .
+
+── OpenJDK 64-Bit Server VM 17.0.8+7 (cd7b7eea) ────────────────────────────────
+
+── scrabble ──
+
+metric     mean                       median
+time        388 m ( 371 m -  415 m)    373 m ( 363 m -  392 m)
+
+────────────────────────────────────────────────────────────────────────────────</code></pre>
 <p>Use <code><a href="reference/load_file_json.html">load_file_json ()</a></code> or <code><a href="reference/load_path_json.html">load_path_json ()</a></code> to load measurement data into a <a href="https://github.com/tidyverse/tibble" class="external-link">tibble</a>. The functions support multiple measurement data file versions and normalize basic timing columns for easier processing.</p>
 </div>
 </div>

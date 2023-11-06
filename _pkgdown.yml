@@ -24,6 +24,7 @@ reference:
   contents:
     - rren_example
     - rren_artificial
+    - report_summaries
 
 - title: internal
   contents:
