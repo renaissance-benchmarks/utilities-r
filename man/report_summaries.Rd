@@ -4,7 +4,7 @@
 \alias{report_summaries}
 \title{Report result summaries.}
 \usage{
-report_summaries(input, warmup = 5 * 60)
+report_summaries(input = ".", warmup = 5 * 60)
 }
 \arguments{
 \item{input}{Data path or data tibble to summarize.}
