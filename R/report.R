@@ -7,15 +7,18 @@
 #' @param key Group key information.
 report_summaries_benchmark_group_helper <- function (group, key) {
 
+    # Group walk calls us once even with empty tibble.
+    if (nrow (group) == 0) return ()
+
+    # Summarize every numeric column except index and total with time first.
+    metrics <- c ('time', sort (setdiff (names (group |> select_if (is.numeric)), c ('index', 'time', 'total'))))
+
     WIDTH_VALUES <- 24
-    WIDTH_METRIC <- max (32, console_width () - 2*WIDTH_VALUES - 8)
+    WIDTH_METRIC <- min (max (c (8, str_length (metrics))), console_width () - 2*WIDTH_VALUES - 8)
 
     cli_h2 (key $ benchmark)
 
     cat_line (sprintf (glue ('%-{WIDTH_METRIC}s   %-{WIDTH_VALUES}s   %-{WIDTH_VALUES}s'), 'metric', 'mean', 'median'))
-
-    # Summarize every numeric column except index and total with time first.
-    metrics <- c ('time', sort (setdiff (names (group |> select_if (is.numeric)), c ('index', 'time', 'total'))))
 
     for (metric in metrics) {
 
@@ -41,6 +44,9 @@ report_summaries_benchmark_group_helper <- function (group, key) {
 #' @param group Single virtual machine group to report on.
 #' @param key Group key information.
 report_summaries_vm_group_helper <- function (group, key) {
+
+    # Group walk calls us once even with empty tibble.
+    if (nrow (group) == 0) return ()
 
     cli_h1 (glue ('{key $ vm_name} {key $ vm_version} ({key $ vm})'))
 
