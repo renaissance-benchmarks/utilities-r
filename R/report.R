@@ -61,14 +61,14 @@ report_summaries_vm_group_helper <- function (group, key) {
 #' @param input Data path or data tibble to summarize.
 #' @param warmup Duration to discard as warm up time.
 #' @export
-report_summaries <- function (input, warmup = 5*60) {
+report_summaries <- function (input = '.', warmup = 5*60) {
 
     # End users may not appreciate too detailed reporting.
     log_threshold (WARN)
 
     # To offer maximum simplicity in use, load data if input is data path.
     if (is.character (input)) {
-        cli_alert_info ('Loading data from {.path {data_path}}')
+        cli_alert_info ('Loading data from {.path {input}}')
         input <- load_path_json (input)
     }
 
