@@ -22,16 +22,28 @@
     <loc>/reference/compute_flat_percentile_ci.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_flat_relative_percentile_ci.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_hierarchical_percentile_ci.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_hierarchical_relative_percentile_ci.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_list_vectors_hierarchical_percentile_ci.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_list_vectors_pair_hierarchical_percentile_ci.html</loc>
   </url>
   <url>
     <loc>/reference/compute_trends.html</loc>
   </url>
   <url>
     <loc>/reference/compute_vector_flat_percentile_ci.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_vector_pair_flat_percentile_ci.html</loc>
   </url>
   <url>
     <loc>/reference/expect_renaissance.html</loc>
@@ -83,6 +95,15 @@
   </url>
   <url>
     <loc>/reference/locate_vector_segments.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_default_labels.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_website_stripes.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_website_violins.html</loc>
   </url>
   <url>
     <loc>/reference/preserve_last_n.html</loc>

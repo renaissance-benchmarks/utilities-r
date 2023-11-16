@@ -149,8 +149,8 @@ identify_vector_outliers_window <- function (.input, .window = 333, .limit = 0.0
     limits_hi <- limits [2, ] + ranges * .slack
 
     # Stretch limits across border samples.
-    limits_lo <- c (rep.int (first (limits_lo), floor ((.window - 1) / 2)), limits_lo, rep (last (limits_lo), ceiling ((.window - 1) / 2)))
-    limits_hi <- c (rep.int (first (limits_hi), floor ((.window - 1) / 2)), limits_hi, rep (last (limits_hi), ceiling ((.window - 1) / 2)))
+    limits_lo <- c (rep.int (first (limits_lo), floor ((.window - 1) / 2)), limits_lo, rep.int (last (limits_lo), ceiling ((.window - 1) / 2)))
+    limits_hi <- c (rep.int (first (limits_hi), floor ((.window - 1) / 2)), limits_hi, rep.int (last (limits_hi), ceiling ((.window - 1) / 2)))
 
     return (.input < limits_lo | .input > limits_hi)
 }

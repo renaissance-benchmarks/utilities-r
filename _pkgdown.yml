@@ -15,7 +15,9 @@ reference:
   contents:
     - matches ('^(compute)_trends')
     - matches ('^(compute)_(flat|hierarchical)_percentile_ci')
+    - matches ('^(compute)_(flat|hierarchical)_relative_percentile_ci')
     - matches ('^(compute)_(vector_flat|list_vectors_hierarchical)_percentile_ci')
+    - matches ('^(compute)_(vector_pair_flat|list_vectors_pair_hierarchical)_percentile_ci')
     - matches ('^(locate|identify)_vector_segments$')
     - matches ('^(list)_dimensions$')
     - matches ('^(list)_segment_boundaries$')
@@ -25,6 +27,8 @@ reference:
     - rren_example
     - rren_artificial
     - report_summaries
+    - plot_default_labels
+    - matches ('plot_website_(stripes|violins)')
 
 - title: internal
   contents:

@@ -8,7 +8,8 @@ compute_vector_flat_percentile_ci(
   .input,
   .statistic = mean,
   .confidence = 0.99,
-  .R = 10000
+  .R = 10000,
+  .reduction = 0
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ compute_vector_flat_percentile_ci(
 \item{.confidence}{Confidence level.}
 
 \item{.R}{Number of replicates.}
+
+\item{.reduction}{Replicate size reduction.}
 }
 \value{
 Tibble with confidence interval.

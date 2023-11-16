@@ -5,6 +5,8 @@
 #' @import utils
 #' @import logger
 #' @import tibble
+#' @import forcats
+#' @import ggplot2
 #' @import stringr
 #' @import checkmate
 #' @import prettyunits

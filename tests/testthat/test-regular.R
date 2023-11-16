@@ -1,5 +1,5 @@
 test_that ('regular artifact listing by position works on artificial data', {
-    test_data <- rren_artificial (c (abs (rnorm (1000, mean = 0)), abs (rnorm (1000, mean = 100))), 2, 22, 2)
+    test_data <- rren_artificial (c (abs (rnorm (1000, mean = 0)), abs (rnorm (1000, mean = 100))), 22, 2, 2)
 
     test_dimensions <- list_dimensions (test_data)
     expect_tibble (test_dimensions, nrows = 88)
@@ -19,7 +19,7 @@ test_that ('regular artifact listing by position works on artificial data', {
 })
 
 test_that ('regular artifact listing by interval works on artificial data', {
-    test_data <- rren_artificial (c (abs (rnorm (1000, mean = 0)), abs (rnorm (1000, mean = 100))), 2, 22, 2)
+    test_data <- rren_artificial (c (abs (rnorm (1000, mean = 0)), abs (rnorm (1000, mean = 100))), 22, 2, 2)
 
     test_dimensions <- list_dimensions (test_data)
     expect_tibble (test_dimensions, nrows = 88)
@@ -37,7 +37,7 @@ test_that ('regular artifact listing by interval works on artificial data', {
 })
 
 test_that ('regular artifact listing by interval works on multiple segments', {
-    test_data <- rren_artificial (c (abs (rnorm (1000, mean = 0)), abs (rnorm (1000, mean = 100)), abs (rnorm (1000, mean = 0))), 1, 22, 1)
+    test_data <- rren_artificial (c (abs (rnorm (1000, mean = 0)), abs (rnorm (1000, mean = 100)), abs (rnorm (1000, mean = 0))), 22, 1, 1)
 
     test_dimensions <- list_dimensions (test_data)
     expect_tibble (test_dimensions, nrows = 22)
