@@ -30,7 +30,7 @@ GC before operation: completed in 62.114 ms, heap usage 188.729 MB -> 77.885 MB.
 ── scrabble ──
 
 metric     mean                       median
-time        388 m ( 371 m -  415 m)    373 m ( 363 m -  392 m)
+time        388 m (371 m - 415 m)      373 m (363 m - 392 m)
 
 ────────────────────────────────────────────────────────────────────────────────
 ```

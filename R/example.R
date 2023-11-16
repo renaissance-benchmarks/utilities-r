@@ -13,21 +13,33 @@ rren_example <- function (file_name = '') {
 
 #' Return data frame with artificial data.
 #'
-#' @param data Data to use.
-#' @param vm_count Count of VM combinations to generate.
-#' @param run_count Count of run combinations to generate.
-#' @param benchmark_count Count of benchmark combinations to generate.
-#' @return data Frame with artificial data.
+#' Data to use for each run is the same. The result tibble
+#' is arranged to first iterate runs, then benchmarks,
+#' then virtual machines. This guarantee is useful
+#' when difference between runs is to be
+#' injected later.
+#'
+#' @param data Data to use for each run.
+#' @param run_count Count of run combinations to generate per virtual machine and benchmark.
+#' @param benchmark_count Count of benchmark combinations to generate per virtual machine.
+#' @param vm_count Count of virtual machine combinations to generate.
+#' @return data Tibble with artificial data.
 #' @export
-rren_artificial <- function (data, vm_count = 1L, run_count = 1L, benchmark_count = 1L) {
+rren_artificial <- function (data, run_count = 1L, benchmark_count = 1L, vm_count = 1L) {
 
     result <- tibble (time = data) |>
         mutate (
             index = row_number (),
             total = cumsum (data))
 
+    list_times_run <- lapply (seq (run_count), function (x) result |> mutate (run = factor (glue::glue ('Run {x}'))))
+    result_times_run <- bind_rows (list_times_run)
+
+    list_times_benchmark <- lapply (seq (benchmark_count), function (x) result_times_run |> mutate (benchmark = factor (glue::glue ('Benchmark {x}'))))
+    result_times_benchmark <- bind_rows (list_times_benchmark)
+
     list_times_vm <- lapply (seq (vm_count),
-        function (x) result |> mutate (
+        function (x) result_times_benchmark |> mutate (
             vm_name = factor (glue::glue ('Name {x}')),
             vm_version = factor (glue::glue ('Version {x}')),
             vm_configuration = factor (glue::glue ('Configuration {x}')),
@@ -35,11 +47,5 @@ rren_artificial <- function (data, vm_count = 1L, run_count = 1L, benchmark_coun
 
     result_times_vm <- bind_rows (list_times_vm)
 
-    list_times_run <- lapply (seq (run_count), function (x) result_times_vm |> mutate (run = factor (glue::glue ('Run {x}'))))
-    result_times_run <- bind_rows (list_times_run)
-
-    list_times_benchmark <- lapply (seq (benchmark_count), function (x) result_times_run |> mutate (benchmark = factor (glue::glue ('Benchmark {x}'))))
-    result_times_benchmark <- bind_rows (list_times_benchmark)
-
-    return (result_times_benchmark)
+    return (result_times_vm)
 }

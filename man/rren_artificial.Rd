@@ -4,20 +4,24 @@
 \alias{rren_artificial}
 \title{Return data frame with artificial data.}
 \usage{
-rren_artificial(data, vm_count = 1L, run_count = 1L, benchmark_count = 1L)
+rren_artificial(data, run_count = 1L, benchmark_count = 1L, vm_count = 1L)
 }
 \arguments{
-\item{data}{Data to use.}
+\item{data}{Data to use for each run.}
 
-\item{vm_count}{Count of VM combinations to generate.}
+\item{run_count}{Count of run combinations to generate per virtual machine and benchmark.}
 
-\item{run_count}{Count of run combinations to generate.}
+\item{benchmark_count}{Count of benchmark combinations to generate per virtual machine.}
 
-\item{benchmark_count}{Count of benchmark combinations to generate.}
+\item{vm_count}{Count of virtual machine combinations to generate.}
 }
 \value{
-data Frame with artificial data.
+data Tibble with artificial data.
 }
 \description{
-Return data frame with artificial data.
+Data to use for each run is the same. The result tibble
+is arranged to first iterate runs, then benchmarks,
+then virtual machines. This guarantee is useful
+when difference between runs is to be
+injected later.
 }

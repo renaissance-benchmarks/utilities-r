@@ -11,7 +11,7 @@ compute_hierarchical_percentile_ci(.input, .column, ...)
 
 \item{.column}{Column to compute confidence interval for.}
 
-\item{...}{Parameters to \code{\link[=compute_vector_flat_percentile_ci]{compute_vector_flat_percentile_ci()}}.}
+\item{...}{Parameters to \code{\link[=compute_list_vectors_hierarchical_percentile_ci]{compute_list_vectors_hierarchical_percentile_ci()}}.}
 }
 \value{
 Summarized tibble with confidence interval columns.
