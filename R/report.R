@@ -149,6 +149,7 @@ plot_website_stripes_group_helper <- function (group, key) {
             fill = fct_reorder (.data $ vm_label, .data $ vm_order))) +
         geom_col () +
         geom_errorbar (width = 0.5, color = '#555555') +
+        scale_fill_brewer (palette = 'Accent', type = 'qual') +
         facet_wrap (vars (.data $ benchmark), nrow = STRIPE_ROWS, scales = 'free_y', strip.position = 'bottom') +
         labs (x = NULL, y = 'Average throughput relative to baseline [%]', fill = 'JVM implementation') +
         theme (
@@ -219,13 +220,15 @@ plot_website_violins_group_helper <- function (group, key) {
             fill = fct_reorder (.data $ vm_label, .data $ vm_order))) +
         geom_violin (scale = 'width', width = 1) +
         geom_boxplot (width = 0.2) +
+        scale_fill_brewer (palette = 'Blues', type = 'qual') +
         facet_wrap (vars (.data $ benchmark), nrow = PLOT_ROWS, scales = 'free_y') +
-        theme (legend.position = 'none', axis.text.x = element_text (angle = 90, vjust = 0.5, hjust = 1)) +
         labs (
             x = NULL,
             y = 'Single repetition time [s]',
             title = glue ('Warm repetition time distribution except outliers on JDK {key $ vm_jdk}')) +
-        scale_fill_brewer (palette = 'Blues', type = 'qual')
+        theme (
+            legend.position = 'none',
+            axis.text.x = element_text (angle = 90, vjust = 0.5, hjust = 1))
 
     ggsave (glue ('violin-jdk-{key $ vm_jdk}.png'), nice, width = PLOT_WIDTH, height = PLOT_HEIGHT, units = 'mm')
 }
