@@ -166,8 +166,6 @@ plot_website_stripes_group_helper <- function (group, key) {
             plot.background = element_rect (fill = 'transparent', color = NA))
 
     ggsave (glue ('stripe-jdk-{key $ vm_jdk}.png'), nice, width = STRIPE_WIDTH, height = STRIPE_HEIGHT, units = 'mm', bg = 'transparent')
-
-    readr::write_csv (group, glue ('summary-jdk-{key $ vm_jdk}.csv'))
 }
 
 
