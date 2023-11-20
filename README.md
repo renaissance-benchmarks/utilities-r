@@ -8,6 +8,8 @@ rren packages various functions useful for processing measurements collected usi
 
 ## Installation
 
+rren is a package for the [R Project](https://www.r-project.org). It can be installed from the R command line:
+
 ```r
 install.packages ('pak')
 pak::pak ('renaissance-benchmarks/utilities-r')
@@ -15,7 +17,7 @@ pak::pak ('renaissance-benchmarks/utilities-r')
 
 ## Usage
 
-A simple summary report can be generated from JSON data with `Rscript -e 'rren::report_summaries ()'` run in the data path.
+A simple summary report can be generated from JSON data with `Rscript -e 'rren::report_summaries ()'` run in the data path:
 
 ```console
 > java -jar renaissance-gpl-0.15.0.jar --json scrabble.json scrabble
