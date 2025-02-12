@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot stripe image used on benchmark website.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/renaissance-benchmarks/utilities-r/blob/HEAD/R/report.R" class="external-link"><code>R/report.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/renaissance-benchmarks/utilities-r/blob/fix/relative-baseline/R/report.R" class="external-link"><code>R/report.R</code></a></small>
       <div class="d-none name"><code>plot_website_stripes.Rd</code></div>
     </div>
 
@@ -61,10 +61,10 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="load_path_json.html">load_path_json</a></span> <span class="op">(</span><span class="fu"><a href="rren_example.html">rren_example</a></span> <span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 10:48:46] Loaded 6 rows from file /home/ceres/.Rlibs/x86_64-redhat-linux-gnu-4.4/rren/extdata//results-small-version-1.json.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 10:48:46] Loaded 6 rows from file /home/ceres/.Rlibs/x86_64-redhat-linux-gnu-4.4/rren/extdata//results-small-version-2.json.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 10:48:46] Loaded 6 rows from file /home/ceres/.Rlibs/x86_64-redhat-linux-gnu-4.4/rren/extdata//results-small-version-5.json.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 10:48:46] Loaded 18 rows from path /home/ceres/.Rlibs/x86_64-redhat-linux-gnu-4.4/rren/extdata/.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 11:58:07] Loaded 6 rows from file /home/runner/work/_temp/Library/rren/extdata//results-small-version-1.json.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 11:58:07] Loaded 6 rows from file /home/runner/work/_temp/Library/rren/extdata//results-small-version-2.json.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 11:58:07] Loaded 6 rows from file /home/runner/work/_temp/Library/rren/extdata//results-small-version-5.json.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> INFO [2025-02-12 11:58:07] Loaded 18 rows from path /home/runner/work/_temp/Library/rren/extdata/.</span>
 <span class="r-in"><span><span class="co"># Edit labels manually to provide JDK version.</span></span></span>
 <span class="r-in"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="plot_default_labels.html">plot_default_labels</a></span> <span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">plot_website_stripes</span> <span class="op">(</span><span class="va">data</span>, labels <span class="op">=</span> <span class="va">labels</span><span class="op">)</span></span></span>
