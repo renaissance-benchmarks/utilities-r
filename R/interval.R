@@ -235,7 +235,7 @@ compute_hierarchical_relative_percentile_ci <- function (.input, .baseline, .col
     baseline_for_benchmark <- function (benchmark) {
         force (benchmark)
         baseline <- baseline_for_vm |> filter (.data $ benchmark == .env $ benchmark)
-        return (split (baseline_for_vm |> pull ({{ .column }}), baseline_for_vm $ run, drop = TRUE))
+        return (split (baseline |> pull ({{ .column }}), baseline $ run, drop = TRUE))
     }
 
     .input |>
