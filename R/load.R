@@ -47,7 +47,7 @@ extract_meta_versions_1_2 <- function (data_json) {
         vm_configuration = factor (paste (data_json [['environment']] [['vm']] [['args']], collapse = ' ')))
 }
 
-extract_meta_version_5 <- function (data_json) {
+extract_meta_versions_5_6 <- function (data_json) {
     tibble (
         vm_name = factor (data_json [['environment']] [['vm']] [['name']]),
         vm_version = factor (data_json [['environment']] [['vm']] [['version']]),
@@ -55,7 +55,7 @@ extract_meta_version_5 <- function (data_json) {
 }
 
 extract_meta <- function (data_json, version) {
-    if (version %in% c (5)) return (extract_meta_version_5 (data_json))
+    if (version %in% c (5, 6)) return (extract_meta_versions_5_6 (data_json))
     if (version %in% c (1, 2)) return (extract_meta_versions_1_2 (data_json))
     log_error ('Data format version {version} not supported.')
     stop ()
@@ -81,7 +81,7 @@ extract_data_versions_1_2 <- function (data_json, benchmark) {
 }
 
 
-extract_data_version_5 <- function (data_json, benchmark) {
+extract_data_versions_5_6 <- function (data_json, benchmark) {
 
     data_read <- as_tibble (data_json [['data']] [[benchmark]] [['results']])
     assert_tibble (data_read, min.rows = 1)
@@ -99,7 +99,7 @@ extract_data_version_5 <- function (data_json, benchmark) {
 
 extract_data <- function (data_json, benchmark, version, meta_read) {
     data_read <- NULL
-    if (version %in% c (5)) data_read <- (extract_data_version_5 (data_json, benchmark))
+    if (version %in% c (5, 6)) data_read <- (extract_data_versions_5_6 (data_json, benchmark))
     if (version %in% c (1, 2)) data_read <- (extract_data_versions_1_2 (data_json, benchmark))
     assert_tibble (data_read, min.rows = 1)
     bind_cols (data_read, meta_read, tibble (benchmark = factor (benchmark)))
